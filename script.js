@@ -15,3 +15,55 @@ if (menuToggle && siteNav) {
     });
   });
 }
+
+const setupSlideshow = (slideSelector, dotSelector, intervalMs = 4000) => {
+  const slides = Array.from(document.querySelectorAll(slideSelector));
+  const dots = Array.from(document.querySelectorAll(dotSelector));
+
+  if (slides.length === 0 || dots.length !== slides.length) {
+    return;
+  }
+
+  let activeSlideIndex = 0;
+  let slideIntervalId = null;
+
+  const showSlide = (index) => {
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.toggle("is-active", slideIndex === index);
+    });
+
+    dots.forEach((dot, dotIndex) => {
+      dot.classList.toggle("is-active", dotIndex === index);
+    });
+
+    activeSlideIndex = index;
+  };
+
+  const startSlideshow = () => {
+    slideIntervalId = window.setInterval(() => {
+      const nextIndex = (activeSlideIndex + 1) % slides.length;
+      showSlide(nextIndex);
+    }, intervalMs);
+  };
+
+  const restartSlideshow = () => {
+    if (slideIntervalId !== null) {
+      window.clearInterval(slideIntervalId);
+    }
+
+    startSlideshow();
+  };
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      showSlide(index);
+      restartSlideshow();
+    });
+  });
+
+  showSlide(0);
+  startSlideshow();
+};
+
+setupSlideshow(".hero-slide", ".hero-dot");
+setupSlideshow(".facilities-slide", ".facilities-dot", 4500);

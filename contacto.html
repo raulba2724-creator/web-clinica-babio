@@ -31,7 +31,11 @@
         "about": {
           "@type": "Dentist",
           "name": "Clínica Dental Doctor Babío",
-          "telephone": "+34 954 65 95 54",
+          "telephone": [
+            "+34 954 65 95 54",
+            "+34 954 63 54 78",
+            "+34 683 59 31 13"
+          ],
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "C. Canal, 2, 1ºL",
@@ -44,6 +48,7 @@
     </script>
   </head>
   <body>
+    <div class="site-background" aria-hidden="true"></div>
     <div class="page-shell">
       <header class="site-header">
         <a class="brand" href="index.html" aria-label="Clínica Dental Doctor Babío">
@@ -61,7 +66,13 @@
           <a href="implantes-sector-estetico-sevilla.html">Sector estético</a>
           <a href="implantes-fracasados-sevilla.html">Casos complejos</a>
           <a href="contacto.html">Contacto</a>
-          <a class="nav-cta" href="tel:+34954659554">Llamar</a>
+          <a
+            class="nav-cta"
+            href="https://wa.me/34683593113"
+            target="_blank"
+            rel="noreferrer"
+            >WhatsApp</a
+          >
         </nav>
       </header>
 
@@ -75,17 +86,41 @@
               concreta y quieren hablar con la clínica para estudiar su caso.
             </p>
           </div>
+          <figure class="inline-hero-image">
+            <img
+              src="assets/images/equipo-clinica.jpg"
+              alt="Equipo de atención de la Clínica Dental Doctor Babío"
+            />
+          </figure>
         </section>
 
         <section class="content-section">
           <div class="service-list">
             <article class="service-card">
-              <h3>Llamar a la clínica</h3>
+              <h3>Llamar o escribir a la clínica</h3>
               <p>
                 Para pacientes con intención alta, la llamada sigue siendo una de
-                las vías más valiosas.
+                las vías más valiosas. Si lo prefieres, también puedes escribirnos
+                por WhatsApp para una primera toma de contacto.
               </p>
-              <a class="button button-primary" href="tel:+34954659554">954 65 95 54</a>
+              <div class="contact-number-list">
+                <a class="button button-primary" href="tel:+34954659554"
+                  >954 65 95 54</a
+                >
+                <a class="button button-secondary" href="tel:+34954635478"
+                  >954 63 54 78</a
+                >
+                <a class="button button-secondary" href="tel:+34683593113"
+                  >683 59 31 13</a
+                >
+                <a
+                  class="button button-whatsapp"
+                  href="https://wa.me/34683593113"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Hablar por WhatsApp</a
+                >
+              </div>
             </article>
 
             <article class="service-card">
@@ -110,7 +145,7 @@
         <section class="content-section accent-section">
           <div class="section-heading">
             <p class="eyebrow">Para qué puedes contactarnos</p>
-            <h2>La web debe filtrar desde el principio el motivo de consulta que más interesa a la clínica.</h2>
+            <h2>Estos son algunos de los motivos de consulta en los que más podemos ayudar a nuestros pacientes.</h2>
           </div>
           <div class="grid-three">
             <article class="feature-card">
@@ -130,7 +165,10 @@
       </main>
 
       <footer class="site-footer">
-        <p>Clínica Dental Doctor Babío · C. Canal, 2, 1ºL · 41006 Sevilla</p>
+        <p>
+          Clínica Dental Doctor Babío · C. Canal, 2, 1ºL · 41006 Sevilla · 954
+          65 95 54 · 954 63 54 78 · 683 59 31 13
+        </p>
       </footer>
     </div>
     <script src="script.js"></script>
