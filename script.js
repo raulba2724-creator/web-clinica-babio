@@ -83,3 +83,23 @@ document.querySelectorAll(".service-card-toggle").forEach((toggle) => {
     content.parentElement?.classList.toggle("is-open", !expanded);
   });
 });
+
+document.querySelectorAll(".map-load-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const mapSrc = button.getAttribute("data-map-src");
+    const mapContainer = button.closest(".mini-map");
+
+    if (!mapSrc || !mapContainer) {
+      return;
+    }
+
+    mapContainer.innerHTML = `
+      <iframe
+        title="Mapa de Clínica Dental Doctor Babío"
+        src="${mapSrc}"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    `;
+  });
+});

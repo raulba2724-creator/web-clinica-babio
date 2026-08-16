@@ -23,6 +23,8 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
+    <link rel="icon" type="image/png" href="assets/images/logo-unificado.png" />
+    <link rel="apple-touch-icon" href="assets/images/logo-unificado.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -203,12 +205,19 @@
                 <p>C. Canal, 2, 1ºL</p>
                 <p>41006 Sevilla</p>
                 <div class="mini-map" aria-label="Mapa de la clínica">
-                  <iframe
-                    title="Mapa de Clínica Dental Doctor Babío"
-                    src="https://www.google.com/maps?q=C.+Canal,+2,+1%C2%BAL,+41006+Sevilla&z=16&output=embed"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                  ></iframe>
+                  <div class="mini-map-placeholder">
+                    <p>
+                      Pulsa para cargar el mapa dentro de la página. Al hacerlo,
+                      Google Maps puede aplicar sus propias cookies y condiciones.
+                    </p>
+                    <button
+                      class="text-link map-load-button"
+                      type="button"
+                      data-map-src="https://www.google.com/maps?q=C.+Canal,+2,+1%C2%BAL,+41006+Sevilla&z=16&output=embed"
+                    >
+                      Cargar mapa
+                    </button>
+                  </div>
                 </div>
                 <div class="panel-links">
                   <a class="text-link" href="#contacto">Ver contacto</a>
@@ -1012,6 +1021,11 @@
           Clínica dental en Sevilla con implantología, prótesis, estética,
           cirugía oral, periodoncia, endodoncia, ortodoncia y salud oral general.
         </p>
+        <div class="site-footer-links">
+          <a href="aviso-legal.html">Aviso legal</a>
+          <a href="privacidad.html">Privacidad</a>
+          <a href="cookies.html">Cookies</a>
+        </div>
       </footer>
     </div>
 
