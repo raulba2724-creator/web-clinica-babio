@@ -67,3 +67,19 @@ const setupSlideshow = (slideSelector, dotSelector, intervalMs = 4000) => {
 
 setupSlideshow(".hero-slide", ".hero-dot");
 setupSlideshow(".facilities-slide", ".facilities-dot", 4500);
+
+document.querySelectorAll(".service-card-toggle").forEach((toggle) => {
+  toggle.addEventListener("click", () => {
+    const controlledId = toggle.getAttribute("aria-controls");
+    const content = controlledId ? document.getElementById(controlledId) : null;
+
+    if (!content) {
+      return;
+    }
+
+    const expanded = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!expanded));
+    content.hidden = expanded;
+    content.parentElement?.classList.toggle("is-open", !expanded);
+  });
+});
