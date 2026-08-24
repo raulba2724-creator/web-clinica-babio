@@ -103,3 +103,30 @@ document.querySelectorAll(".map-load-button").forEach((button) => {
     `;
   });
 });
+
+const newsFilterButtons = Array.from(document.querySelectorAll("[data-news-filter]"));
+const newsBoardItems = Array.from(document.querySelectorAll("[data-news-category]"));
+
+if (newsFilterButtons.length > 0 && newsBoardItems.length > 0) {
+  const applyNewsFilter = (category) => {
+    newsFilterButtons.forEach((button) => {
+      const selected = button.dataset.newsFilter === category;
+      button.classList.toggle("is-active", selected);
+      button.setAttribute("aria-pressed", String(selected));
+    });
+
+    newsBoardItems.forEach((item) => {
+      item.hidden = category !== "todas" && item.dataset.newsCategory !== category;
+    });
+  };
+
+  newsFilterButtons.forEach((button) => {
+    button.addEventListener("click", () => applyNewsFilter(button.dataset.newsFilter));
+  });
+
+  const categoryFromHash = window.location.hash.replace("#", "");
+  const validCategory = newsFilterButtons.some(
+    (button) => button.dataset.newsFilter === categoryFromHash,
+  );
+  applyNewsFilter(validCategory ? categoryFromHash : "todas");
+}
