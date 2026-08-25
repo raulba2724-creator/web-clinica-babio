@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://clinicababio.es/sitemap.xml
