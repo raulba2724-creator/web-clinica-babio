@@ -1,0 +1,40 @@
+{
+  "news_placeholders": [
+    {
+      "category": "clinica",
+      "label": "Novedades de la clínica",
+      "title": "Próximamente: noticias de Clínica Babío",
+      "excerpt": "Aquí publicaremos novedades del equipo, servicios y mejoras de la clínica.",
+      "image": "/assets/images/equipo-clinica.jpg",
+      "image_alt": "Equipo de Clínica Dental Doctor Babío"
+    },
+    {
+      "category": "consejos",
+      "label": "Consejos",
+      "title": "Información para cuidar tu salud bucodental",
+      "excerpt": "Compartiremos recomendaciones sencillas y útiles para el día a día.",
+      "image": "/assets/images/odontologia-general-ilustracion.png",
+      "image_alt": "Ilustración sobre cuidado y salud bucodental"
+    },
+    {
+      "category": "avisos",
+      "label": "Avisos",
+      "title": "Campañas, horarios y anuncios importantes",
+      "excerpt": "Este espacio servirá para mantener informados a nuestros pacientes.",
+      "image": "/assets/images/noticias-calendario.png",
+      "image_alt": "Calendario de citas y avisos de Clínica Babío"
+    }
+  ],
+  "sector_case": {
+    "title": "Sector estético",
+    "description": "Cuando la sonrisa está muy expuesta, no basta con reponer una pieza: hay que pensar en encía, forma, color, perfil de emergencia y naturalidad final. Son tratamientos que exigen sensibilidad estética y un criterio muy preciso.",
+    "before_image": "/assets/images/caso-sector-estetico-antes.png",
+    "before_alt": "Antes de un tratamiento en sector estético",
+    "before_caption": "Situación inicial del sector anterior.",
+    "after_image": "/assets/images/caso-sector-estetico-despues.png",
+    "after_alt": "Después de un tratamiento en sector estético",
+    "after_caption": "Resultado final tras la rehabilitación estética.",
+    "video": "/assets/videos/caso-sector-estetico.mp4",
+    "video_caption": "Resultado del tratamiento de sector estético en movimiento."
+  }
+}

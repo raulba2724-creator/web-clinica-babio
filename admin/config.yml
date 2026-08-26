@@ -1,0 +1,86 @@
+locale: es
+
+backend:
+  name: github
+  repo: raulba2724-creator/web-clinica-babio
+  branch: main
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+  site_domain: clinicababio.es
+  use_graphql: true
+
+publish_mode: editorial_workflow
+site_url: https://clinicababio.es
+display_url: https://clinicababio.es
+show_preview_links: true
+
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: configuracion
+    label: Contenido de la portada
+    files:
+      - name: contenido_principal
+        label: Noticias provisionales y caso estético
+        file: content/site.json
+        format: json
+        fields:
+          - label: Tarjetas provisionales de noticias
+            name: news_placeholders
+            widget: list
+            min: 1
+            max: 3
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Categoría, name: category, widget: select, options: [{ label: Clínica, value: clinica }, { label: Consejos, value: consejos }, { label: Avisos, value: avisos }] }
+              - { label: Etiqueta visible, name: label, widget: string }
+              - { label: Título, name: title, widget: string }
+              - { label: Resumen, name: excerpt, widget: text }
+              - { label: Imagen, name: image, widget: image }
+              - { label: Texto alternativo de la imagen, name: image_alt, widget: string }
+          - label: Caso destacado de sector estético
+            name: sector_case
+            widget: object
+            fields:
+              - { label: Título, name: title, widget: string }
+              - { label: Descripción, name: description, widget: text }
+              - { label: Imagen antes, name: before_image, widget: image }
+              - { label: Texto alternativo antes, name: before_alt, widget: string }
+              - { label: Pie de foto antes, name: before_caption, widget: string }
+              - { label: Imagen después, name: after_image, widget: image }
+              - { label: Texto alternativo después, name: after_alt, widget: string }
+              - { label: Pie de foto después, name: after_caption, widget: string }
+              - { label: Vídeo, name: video, widget: file, required: false }
+              - { label: Pie del vídeo, name: video_caption, widget: string, required: false }
+
+  - name: noticias
+    label: Noticias
+    label_singular: Noticia
+    folder: content/posts
+    create: true
+    format: json
+    extension: json
+    identifier_field: title
+    summary: "{{title}} — {{date}}"
+    sortable_fields: [date, title, category]
+    view_filters:
+      - { label: Publicadas, field: published, pattern: true }
+      - { label: Borradores, field: published, pattern: false }
+      - { label: Consejos, field: category, pattern: consejos }
+      - { label: Avisos, field: category, pattern: avisos }
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Resumen para tarjetas y Google, name: excerpt, widget: text, hint: Entre 120 y 160 caracteres es una buena referencia. }
+      - { label: Fecha, name: date, widget: datetime, date_format: DD/MM/YYYY, time_format: false, format: YYYY-MM-DD }
+      - { label: Categoría, name: category, widget: select, options: [{ label: Clínica, value: clinica }, { label: Consejos, value: consejos }, { label: Avisos, value: avisos }] }
+      - { label: Imagen principal, name: image, widget: image }
+      - { label: Texto alternativo de la imagen, name: image_alt, widget: string }
+      - { label: Contenido, name: body, widget: markdown }
+      - { label: Publicar en la web, name: published, widget: boolean, default: false }
+      - { label: Destacar en portada, name: featured, widget: boolean, default: true }
