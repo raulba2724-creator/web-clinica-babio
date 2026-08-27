@@ -23,7 +23,7 @@ const cleanAssetPath = (value = "") => escapeHtml(String(value).replace(/^\//, "
 const imageDimensions = (item) => item.image_width && item.image_height
   ? ` width="${escapeHtml(item.image_width)}" height="${escapeHtml(item.image_height)}"`
   : "";
-const categoryLabels = { clinica: "Clínica", consejos: "Consejos", avisos: "Avisos" };
+const categoryLabels = { clinica: "Noticias", consejos: "Consejos", avisos: "Avisos" };
 const categoryLabel = (value) => categoryLabels[value] || "Noticias";
 const formatDate = (value) => new Intl.DateTimeFormat("es-ES", {
   day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Madrid",
@@ -39,7 +39,7 @@ const renderHomeCard = (item) => {
   const isPost = Boolean(item.slug);
   const href = isPost ? `/noticias/${escapeHtml(item.slug)}/` : `/noticias.html#${escapeHtml(item.category)}`;
   return `          <article class="news-card">
-            <img src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}" />
+            <img src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />
             <div class="news-card-copy">
               <p class="news-meta">${escapeHtml(isPost ? categoryLabel(item.category) : item.label)}</p>
               <h3>${escapeHtml(item.title)}</h3>
@@ -218,8 +218,9 @@ await copySourceSite();
 
 const site = JSON.parse(await readFile(path.join(contentDirectory, "site.json"), "utf8"));
 const posts = await readPosts();
-const featured = posts.filter((post) => post.featured).slice(0, 3);
-const homeItems = featured.length ? featured : site.news_placeholders;
+const homeItems = site.news_placeholders.map((placeholder) =>
+  posts.find((post) => post.category === placeholder.category) || placeholder
+);
 
 let home = await readFile(path.join(root, "index.html"), "utf8");
 home = replaceMarker(home, "HOME_NEWS", `          <div class="news-grid">\n${homeItems.map(renderHomeCard).join("\n\n")}\n          </div>`);
