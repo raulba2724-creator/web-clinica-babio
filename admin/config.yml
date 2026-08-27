@@ -86,6 +86,7 @@ collections:
       - { label: Texto alternativo de la imagen, name: image_alt, widget: string }
       - { label: Ancho original de la imagen, name: image_width, widget: number, value_type: int, required: false }
       - { label: Alto original de la imagen, name: image_height, widget: number, value_type: int, required: false }
+      - { label: Ajuste de imagen en las tarjetas, name: image_fit, widget: select, options: [{ label: Recortar para llenar, value: cover }, { label: Mostrar imagen completa, value: contain }], default: cover, hint: Usa “Mostrar imagen completa” para carteles o documentos con texto. }
       - { label: Contenido, name: body, widget: markdown }
       - { label: Publicar en la web, name: published, widget: boolean, default: false }
       - { label: Destacar en portada, name: featured, widget: boolean, default: true }

@@ -23,6 +23,7 @@ const cleanAssetPath = (value = "") => escapeHtml(String(value).replace(/^\//, "
 const imageDimensions = (item) => item.image_width && item.image_height
   ? ` width="${escapeHtml(item.image_width)}" height="${escapeHtml(item.image_height)}"`
   : "";
+const cardImageClass = (item) => item.image_fit === "contain" ? ' class="news-card-image-contain"' : "";
 const categoryLabels = { clinica: "Noticias", consejos: "Consejos", avisos: "Avisos" };
 const categoryLabel = (value) => categoryLabels[value] || "Noticias";
 const formatDate = (value) => new Intl.DateTimeFormat("es-ES", {
@@ -39,7 +40,7 @@ const renderHomeCard = (item) => {
   const isPost = Boolean(item.slug);
   const href = isPost ? `/noticias/${escapeHtml(item.slug)}/` : `/noticias.html#${escapeHtml(item.category)}`;
   return `          <article class="news-card">
-            <img src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />
+            <img${cardImageClass(item)} src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />
             <div class="news-card-copy">
               <p class="news-meta">${escapeHtml(isPost ? categoryLabel(item.category) : item.label)}</p>
               <h3>${escapeHtml(item.title)}</h3>
@@ -50,7 +51,7 @@ const renderHomeCard = (item) => {
 };
 
 const renderBoardCard = (item, placeholder = false) => `            <article class="news-card news-board-item" data-news-category="${escapeHtml(item.category)}">
-              <img src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />
+              <img${cardImageClass(item)} src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />
               <div class="news-card-copy">
                 <p class="news-meta">${escapeHtml(categoryLabel(item.category))}</p>${placeholder ? "" : `<time class="news-date" datetime="${escapeHtml(item.date)}">${escapeHtml(formatDate(item.date))}</time>`}
                 <h3>${escapeHtml(item.title)}</h3>

@@ -961,6 +961,13 @@ h3 {
   object-fit: cover;
 }
 
+.news-card img.news-card-image-contain {
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  background: #fff;
+}
+
 .news-card-copy {
   padding: 24px;
 }
