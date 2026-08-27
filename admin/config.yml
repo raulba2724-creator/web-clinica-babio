@@ -76,11 +76,16 @@ collections:
       - { label: Avisos, field: category, pattern: avisos }
     fields:
       - { label: Título, name: title, widget: string }
+      - { label: Título SEO, name: seo_title, widget: string, required: false, hint: Se utiliza en la pestaña del navegador y en Google. }
+      - { label: Meta description, name: meta_description, widget: text, required: false, hint: Descripción específica para buscadores y redes sociales. }
       - { label: Resumen para tarjetas y Google, name: excerpt, widget: text, hint: Entre 120 y 160 caracteres es una buena referencia. }
       - { label: Fecha, name: date, widget: datetime, date_format: DD/MM/YYYY, time_format: false, format: YYYY-MM-DD }
+      - { label: Fecha de modificación, name: date_modified, widget: datetime, date_format: DD/MM/YYYY, time_format: false, format: YYYY-MM-DD, required: false }
       - { label: Categoría, name: category, widget: select, options: [{ label: Clínica, value: clinica }, { label: Consejos, value: consejos }, { label: Avisos, value: avisos }] }
       - { label: Imagen principal, name: image, widget: image }
       - { label: Texto alternativo de la imagen, name: image_alt, widget: string }
+      - { label: Ancho original de la imagen, name: image_width, widget: number, value_type: int, required: false }
+      - { label: Alto original de la imagen, name: image_height, widget: number, value_type: int, required: false }
       - { label: Contenido, name: body, widget: markdown }
       - { label: Publicar en la web, name: published, widget: boolean, default: false }
       - { label: Destacar en portada, name: featured, widget: boolean, default: true }

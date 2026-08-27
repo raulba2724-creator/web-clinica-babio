@@ -20,6 +20,9 @@ const escapeHtml = (value = "") => String(value)
   .replaceAll("'", "&#39;");
 
 const cleanAssetPath = (value = "") => escapeHtml(String(value).replace(/^\//, ""));
+const imageDimensions = (item) => item.image_width && item.image_height
+  ? ` width="${escapeHtml(item.image_width)}" height="${escapeHtml(item.image_height)}"`
+  : "";
 const categoryLabels = { clinica: "Clínica", consejos: "Consejos", avisos: "Avisos" };
 const categoryLabel = (value) => categoryLabels[value] || "Noticias";
 const formatDate = (value) => new Intl.DateTimeFormat("es-ES", {
@@ -47,7 +50,7 @@ const renderHomeCard = (item) => {
 };
 
 const renderBoardCard = (item, placeholder = false) => `            <article class="news-card news-board-item" data-news-category="${escapeHtml(item.category)}">
-              <img src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}" />
+              <img src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />
               <div class="news-card-copy">
                 <p class="news-meta">${escapeHtml(categoryLabel(item.category))}</p>${placeholder ? "" : `<time class="news-date" datetime="${escapeHtml(item.date)}">${escapeHtml(formatDate(item.date))}</time>`}
                 <h3>${escapeHtml(item.title)}</h3>
@@ -78,6 +81,8 @@ const renderSectorCase = (item) => `              <h3>${escapeHtml(item.title)}<
 
 const inlineMarkdown = (value) => escapeHtml(value)
   .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" rel="noopener noreferrer">$1</a>')
+  .replace(/\[([^\]]+)\]\((tel:[^\s)]+)\)/g, '<a href="$2">$1</a>')
+  .replace(/\[([^\]]+)\]\((\/[^\s)]*)\)/g, '<a href="$2">$1</a>')
   .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
   .replace(/\*([^*]+)\*/g, "<em>$1</em>");
 
@@ -117,9 +122,12 @@ const renderMarkdown = (markdown = "") => {
 const articlePage = (post) => {
   const canonical = `${baseUrl}/noticias/${post.slug}/`;
   const imageUrl = `${baseUrl}/${String(post.image).replace(/^\//, "")}`;
+  const seoTitle = post.seo_title || `${post.title} | Clínica Dental Doctor Babío`;
+  const metaDescription = post.meta_description || post.excerpt;
+  const dateModified = post.date_modified || post.date;
   const schema = JSON.stringify({
-    "@context": "https://schema.org", "@type": "Article", headline: post.title,
-    description: post.excerpt, datePublished: post.date, image: imageUrl,
+    "@context": "https://schema.org", "@type": "BlogPosting", headline: post.title,
+    description: metaDescription, datePublished: post.date, dateModified, image: imageUrl,
     mainEntityOfPage: canonical,
     publisher: { "@type": "Dentist", name: "Clínica Dental Doctor Babío", url: `${baseUrl}/` },
   }).replaceAll("<", "\\u003c");
@@ -128,16 +136,19 @@ const articlePage = (post) => {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${escapeHtml(post.title)} | Clínica Dental Doctor Babío</title>
-    <meta name="description" content="${escapeHtml(post.excerpt)}" />
+    <title>${escapeHtml(seoTitle)}</title>
+    <meta name="description" content="${escapeHtml(metaDescription)}" />
     <meta name="theme-color" content="#0f4572" />
     <meta property="og:title" content="${escapeHtml(post.title)}" />
-    <meta property="og:description" content="${escapeHtml(post.excerpt)}" />
+    <meta property="og:description" content="${escapeHtml(metaDescription)}" />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:url" content="${canonical}" />
     <meta property="og:image" content="${imageUrl}" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${escapeHtml(post.title)}" />
+    <meta name="twitter:description" content="${escapeHtml(metaDescription)}" />
+    <meta name="twitter:image" content="${imageUrl}" />
     <link rel="canonical" href="${canonical}" />
     <link rel="icon" type="image/png" href="/assets/images/logo-unificado.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -164,7 +175,7 @@ const articlePage = (post) => {
           <h1>${escapeHtml(post.title)}</h1>
           <time class="article-date" datetime="${escapeHtml(post.date)}">${escapeHtml(formatDate(post.date))}</time>
           <p class="article-lead">${escapeHtml(post.excerpt)}</p>
-          <img class="article-image" src="/${cleanAssetPath(post.image)}" alt="${escapeHtml(post.image_alt)}" />
+          <img class="article-image" src="/${cleanAssetPath(post.image)}" alt="${escapeHtml(post.image_alt)}"${imageDimensions(post)} decoding="async" fetchpriority="high" />
           <div class="article-body">${renderMarkdown(post.body)}</div>
         </article>
       </main>
