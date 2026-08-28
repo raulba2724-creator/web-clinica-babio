@@ -1094,6 +1094,12 @@ h3 {
   object-fit: cover;
 }
 
+.article-image-contain {
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
+
 .article-body {
   max-width: 740px;
   margin: 38px auto 0;

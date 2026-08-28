@@ -176,7 +176,7 @@ const articlePage = (post) => {
           <h1>${escapeHtml(post.title)}</h1>
           <time class="article-date" datetime="${escapeHtml(post.date)}">${escapeHtml(formatDate(post.date))}</time>
           <p class="article-lead">${escapeHtml(post.excerpt)}</p>
-          <img class="article-image" src="/${cleanAssetPath(post.image)}" alt="${escapeHtml(post.image_alt)}"${imageDimensions(post)} decoding="async" fetchpriority="high" />
+          <img class="article-image${post.image_fit === "contain" ? " article-image-contain" : ""}" src="/${cleanAssetPath(post.image)}" alt="${escapeHtml(post.image_alt)}"${imageDimensions(post)} decoding="async" fetchpriority="high" />
           <div class="article-body">${renderMarkdown(post.body)}</div>
         </article>
       </main>
