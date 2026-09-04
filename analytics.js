@@ -93,6 +93,14 @@
       page_path: `${window.location.pathname}${window.location.hash}`,
     });
 
+    // Mantiene cada tipo de acción visible como una fila independiente en el
+    // informe estándar de eventos, sin exigir un informe técnico personalizado.
+    window.gtag("event", `click_${buttonType}`, {
+      button_name: buttonName,
+      link_url: href.slice(0, 500),
+      page_path: `${window.location.pathname}${window.location.hash}`,
+    });
+
     if (["whatsapp", "telefono", "contacto"].includes(buttonType)) {
       window.gtag("event", "generate_lead", {
         method: buttonType,

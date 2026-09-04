@@ -182,7 +182,7 @@ const articlePage = (post) => {
       </main>
       <footer class="site-footer"><p>Clínica Dental Doctor Babío · C. Canal, 2, 1ºL · 41006 Sevilla</p><div class="footer-links"><a href="/">Inicio</a><a href="/#contacto">Contacto</a><a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad</a></div></footer>
     </div>
-    <script src="/analytics.js?v=20260904"></script>
+    <script src="/analytics.js?v=20260904a"></script>
     <script src="/script.js"></script>
   </body>
 </html>`;
