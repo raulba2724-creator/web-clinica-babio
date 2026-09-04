@@ -78,15 +78,35 @@
         <section class="legal-card">
           <h2>2. Cookies utilizadas en esta web</h2>
           <p>
-            En este momento la web no instala por defecto cookies propias de
-            análisis, publicidad o perfilado. La navegación básica y la consulta
-            de contenidos informativos no requieren aceptación de cookies no
-            necesarias.
+            La web utiliza almacenamiento técnico para recordar la elección del
+            usuario sobre la analítica. Google Analytics solo se activa cuando el
+            usuario pulsa «Aceptar analítica». Si se rechaza, la etiqueta de
+            medición no se carga y la navegación básica continúa funcionando.
+          </p>
+          <p>
+            Cuando se acepta, Google Analytics permite conocer de forma agregada
+            las páginas visitadas y las interacciones con enlaces o botones. La
+            configuración desactiva las señales publicitarias y la personalización
+            de anuncios. No se envían datos clínicos ni el contenido de mensajes o
+            llamadas.
+          </p>
+          <div class="cookie-choice-actions" aria-label="Preferencias de analítica">
+            <button class="button button-primary" type="button" data-consent-choice="granted">Aceptar analítica</button>
+            <button class="button button-secondary" type="button" data-consent-choice="denied">Rechazar analítica</button>
+          </div>
+        </section>
+
+        <section class="legal-card">
+          <h2>3. Proveedor de analítica</h2>
+          <p>
+            El servicio de medición es Google Analytics 4, prestado por Google.
+            Puede consultar más información sobre el tratamiento de datos en la
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">política de privacidad de Google</a>.
           </p>
         </section>
 
         <section class="legal-card">
-          <h2>3. Contenidos externos</h2>
+          <h2>4. Contenidos externos</h2>
           <p>
             La web puede ofrecer accesos a servicios externos como WhatsApp o
             Google Maps. En el caso del mapa, el contenido de Google Maps no se
@@ -110,11 +130,15 @@
         </section>
 
         <section class="legal-card">
-          <h2>4. Cómo gestionar o borrar cookies</h2>
+          <h2>5. Cómo gestionar o borrar cookies</h2>
           <p>
             El usuario puede permitir, bloquear o eliminar cookies desde la
             configuración de su navegador. La forma de hacerlo depende del
             navegador utilizado y del dispositivo desde el que se acceda.
+          </p>
+          <p>
+            También puede cambiar su elección en cualquier momento mediante el
+            botón «Configurar analítica» que aparece en la parte inferior de la web.
           </p>
         </section>
       </main>
@@ -129,6 +153,7 @@
       </footer>
     </div>
 
+    <script src="analytics.js?v=20260904"></script>
     <script src="script.js"></script>
   </body>
 </html>
