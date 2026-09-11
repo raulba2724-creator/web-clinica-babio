@@ -80,6 +80,7 @@ collections:
       - { label: Meta description, name: meta_description, widget: text, required: false, hint: Descripción específica para buscadores y redes sociales. }
       - { label: Resumen para tarjetas y Google, name: excerpt, widget: text, hint: Entre 120 y 160 caracteres es una buena referencia. }
       - { label: Fecha, name: date, widget: datetime, date_format: DD/MM/YYYY, time_format: false, format: YYYY-MM-DD }
+      - { label: Publicación programada (hora de Madrid), name: publish_at, widget: string, required: false, hint: 'Opcional. Formato 2026-09-21T09:30. Deja vacío para publicar inmediatamente. La opción Publicar en la web debe estar activada y los cambios guardados en main. El horario de verano se aplica automáticamente.' }
       - { label: Fecha de modificación, name: date_modified, widget: datetime, date_format: DD/MM/YYYY, time_format: false, format: YYYY-MM-DD, required: false }
       - { label: Apartado de la portada, name: category, widget: select, options: [{ label: Noticias, value: clinica }, { label: Consejos, value: consejos }, { label: Avisos, value: avisos }], hint: La publicación más reciente de cada apartado aparece automáticamente en la portada. }
       - { label: Imagen principal, name: image, widget: image }

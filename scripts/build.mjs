@@ -1,6 +1,7 @@
 import { cp, mkdir, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { isVisible, effectiveDate, publicationTime } from './publication-schedule.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const output = path.join(root, "dist");
@@ -194,17 +195,17 @@ const readPosts = async () => {
   const posts = [];
   for (const entry of entries.filter((item) => item.isFile() && item.name.endsWith(".json"))) {
     const post = JSON.parse(await readFile(path.join(postsDirectory, entry.name), "utf8"));
-    if (!post.published) continue;
+    if (!isVisible(post)) continue;
     for (const field of ["title", "excerpt", "date", "category", "image", "image_alt", "body"]) {
       if (!post[field]) throw new Error(`Falta "${field}" en ${entry.name}.`);
     }
-    posts.push({ ...post, slug: path.basename(entry.name, ".json") });
+    posts.push({ ...post, date: effectiveDate(post), slug: path.basename(entry.name, ".json") });
   }
-  return posts.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  return posts.sort((a, b) => (publicationTime(b.publish_at) ?? Date.parse(b.date)) - (publicationTime(a.publish_at) ?? Date.parse(a.date)));
 };
 
 const copySourceSite = async () => {
-  const excluded = new Set([".git", ".gitignore", "dist", "content", "scripts", "node_modules", "netlify.toml"]);
+  const excluded = new Set([".git", ".github", ".gitignore", "dist", "content", "scripts", "node_modules", "netlify.toml", "PUBLICACIONES.md"]);
   for (const entry of await readdir(root, { withFileTypes: true })) {
     if (excluded.has(entry.name)) continue;
     const source = path.join(root, entry.name);

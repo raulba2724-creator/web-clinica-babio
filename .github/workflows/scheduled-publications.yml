@@ -1,0 +1,36 @@
+name: Publicaciones programadas
+on:
+  schedule:
+    - cron: '2-57/5 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['content/posts/**', 'scripts/publication-schedule.mjs', 'scripts/release-scheduled.mjs', '.github/workflows/scheduled-publications.yml']
+permissions:
+  contents: write
+concurrency:
+  group: scheduled-publications
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node --test scripts/publication-schedule.test.mjs
+      - name: Detectar publicaciones vencidas
+        run: node scripts/release-scheduled.mjs
+      - name: Activar despliegue de Netlify solo cuando corresponda
+        shell: bash
+        run: |
+          if git diff --quiet -- content/publication-state.json; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/publication-state.json
+          git commit -m 'Publicar entradas programadas'
+          git push origin HEAD:main
