@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: node --test scripts/publication-schedule.test.mjs
+      - run: node --test scripts/publication-schedule.test.mjs scripts/scheduled-build.test.mjs
       - name: Detectar publicaciones vencidas
         run: node scripts/release-scheduled.mjs
       - name: Activar despliegue de Netlify solo cuando corresponda

@@ -1,5 +1,4 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
 import { dueSchedules } from './publication-schedule.mjs';
 const root = new URL('../', import.meta.url);
 const stateFile = new URL('content/publication-state.json', root);
