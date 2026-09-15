@@ -127,12 +127,21 @@ const articlePage = (post) => {
   const seoTitle = post.seo_title || `${post.title} | Clínica Dental Doctor Babío`;
   const metaDescription = post.meta_description || post.excerpt;
   const dateModified = post.date_modified || post.date;
-  const schema = JSON.stringify({
+  const schemaData = {
     "@context": "https://schema.org", "@type": "BlogPosting", headline: post.title,
     description: metaDescription, datePublished: post.date, dateModified, image: imageUrl,
     mainEntityOfPage: canonical,
     publisher: { "@type": "Dentist", name: "Clínica Dental Doctor Babío", url: `${baseUrl}/` },
-  }).replaceAll("<", "\\u003c");
+  };
+  if (post.author?.name) {
+    schemaData.author = {
+      "@type": "Person",
+      name: post.author.name,
+      ...(post.author.jobTitle ? { jobTitle: post.author.jobTitle } : {}),
+      ...(post.author.identifier ? { identifier: post.author.identifier } : {}),
+    };
+  }
+  const schema = JSON.stringify(schemaData).replaceAll("<", "\\u003c");
   return `<!DOCTYPE html>
 <html lang="es">
   <head>
