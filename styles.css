@@ -1190,6 +1190,13 @@ h3 {
   object-fit: cover;
 }
 
+.article-comparison { overflow-x: auto; max-width: 100%; margin: 2rem 0; }
+.article-comparison:focus-visible { outline: 2px solid #0f4572; outline-offset: 3px; }
+.article-comparison table { border-collapse: collapse; width: 100%; min-width: 36rem; }
+.article-comparison caption { text-align: left; font-weight: 700; padding: 0 0 1rem; }
+.article-comparison th, .article-comparison td { padding: 1rem; border: 1px solid #c8d5df; text-align: left; vertical-align: top; }
+.article-comparison thead { background: #e5edf5; }
+.article-image-caption { color: #596b7c; font-size: .875rem; }
 .article-image-contain {
   height: auto;
   max-height: none;

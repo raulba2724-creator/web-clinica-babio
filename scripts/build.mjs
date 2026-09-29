@@ -121,6 +121,11 @@ const renderMarkdown = (markdown = "") => {
   return result.join("\n              ");
 };
 
+const renderComparison = (table) => {
+  if (!table) return "";
+  return `<div class="article-comparison" role="region" aria-label="${escapeHtml(table.caption)}" tabindex="0"><table><caption>${escapeHtml(table.caption)}</caption><thead><tr>${table.headers.map(h => `<th scope="col">${escapeHtml(h)}</th>`).join("")}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map((cell, i) => i === 0 ? `<th scope="row">${escapeHtml(cell)}</th>` : `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+};
+
 const articlePage = (post) => {
   const canonical = `${baseUrl}/noticias/${post.slug}/`;
   const imageUrl = `${baseUrl}/${String(post.image).replace(/^\//, "")}`;
@@ -129,7 +134,7 @@ const articlePage = (post) => {
   const dateModified = post.date_modified || post.date;
   const schemaData = {
     "@context": "https://schema.org", "@type": "BlogPosting", headline: post.title,
-    description: metaDescription, datePublished: post.date, dateModified, image: imageUrl,
+    description: metaDescription, datePublished: post.publish_at ? new Date(publicationTime(post.publish_at)).toISOString() : post.date, dateModified, image: imageUrl,
     mainEntityOfPage: canonical,
     publisher: { "@type": "Dentist", name: "Clínica Dental Doctor Babío", url: `${baseUrl}/` },
   };
@@ -187,7 +192,8 @@ const articlePage = (post) => {
           <time class="article-date" datetime="${escapeHtml(post.date)}">${escapeHtml(formatDate(post.date))}</time>
           <p class="article-lead">${escapeHtml(post.excerpt)}</p>
           <img class="article-image${post.image_fit === "contain" ? " article-image-contain" : ""}" src="/${cleanAssetPath(post.image)}" alt="${escapeHtml(post.image_alt)}"${imageDimensions(post)} decoding="async" fetchpriority="high" />
-          <div class="article-body">${renderMarkdown(post.body)}</div>
+          ${post.image_caption ? `<p class="article-image-caption">${escapeHtml(post.image_caption)}</p>` : ""}
+          <div class="article-body">${renderMarkdown(post.body).replace("<p>[[COMPARISON_TABLE]]</p>", renderComparison(post.comparison))}</div>
         </article>
       </main>
       <footer class="site-footer"><p>Clínica Dental Doctor Babío · C. Canal, 2, 1ºL · 41006 Sevilla</p><div class="footer-links"><a href="/">Inicio</a><a href="/#contacto">Contacto</a><a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad</a></div></footer>
