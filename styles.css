@@ -10,7 +10,7 @@
   --primary-soft: #d7e8f7;
   --accent: #7f8188;
   --accent-soft: #ececef;
-  --shadow: 0 18px 48px rgba(15, 69, 114, 0.1);
+  --shadow: 0 8px 24px rgba(15, 69, 114, 0.07);
   --radius-xl: 28px;
   --radius-lg: 22px;
   --radius-md: 18px;
@@ -1167,8 +1167,8 @@ h3 {
   max-width: 760px;
   margin: 8px 0 12px;
   color: var(--primary-deep);
-  font-size: clamp(2rem, 5vw, 3.7rem);
-  line-height: 1.08;
+  font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+  line-height: 1.2;
 }
 
 .article-date {
@@ -1308,7 +1308,9 @@ h3 {
   display: block;
   width: 100%;
   aspect-ratio: 626 / 465;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 12px;
+  background: #f4f7fa;
   border-radius: 18px;
 }
 
@@ -1855,3 +1857,14 @@ h3 {
     padding: 20px;
   }
 }
+
+/* Lectura de las páginas de tratamiento, sin alterar el fondo corporativo. */
+.treatment-page .hero h1 { font-size: clamp(1.85rem, 3.5vw, 2.9rem); line-height: 1.2; max-width: 24ch; }
+.treatment-page .hero-copy { align-self: center; }
+.news-card h3 { line-height: 1.35; }
+.publication-cover { position: relative; }
+.publication-cover > .cover-brand { position: absolute; top: 6%; left: 4%; width: 15%; height: auto; aspect-ratio: auto; object-fit: contain; border-radius: 0; margin: 0; }
+.news-card-copy { padding: 24px; }
+.article-body h2 { font-size: clamp(1.35rem, 2.2vw, 1.8rem); line-height: 1.35; }
+.article-body h3 { line-height: 1.4; }
+

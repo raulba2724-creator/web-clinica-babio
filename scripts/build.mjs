@@ -37,11 +37,13 @@ const replaceMarker = (html, name, rendered) => {
   return html.replace(expression, `$1\n${rendered}\n          $2`);
 };
 
+const coverBrand = (item) => item.web_cover ? `<img class="cover-brand" src="/assets/images/logo-unificado.png" alt="Clínica Dental Doctor Babío" />` : "";
+
 const renderHomeCard = (item) => {
   const isPost = Boolean(item.slug);
-  const href = isPost ? `/noticias/${escapeHtml(item.slug)}/` : `/noticias.html#${escapeHtml(item.category)}`;
+  const href = isPost ? `/noticias/${escapeHtml(item.slug)}/` : escapeHtml(item.href || `/noticias.html#${item.category}`);
   return `          <article class="news-card">
-            <img${cardImageClass(item)} src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />
+            <div class="publication-cover"><img${cardImageClass(item)} src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />${coverBrand(item)}</div>
             <div class="news-card-copy">
               <p class="news-meta">${escapeHtml(isPost ? categoryLabel(item.category) : item.label)}</p>
               <h3>${escapeHtml(item.title)}</h3>
@@ -52,12 +54,12 @@ const renderHomeCard = (item) => {
 };
 
 const renderBoardCard = (item, placeholder = false) => `            <article class="news-card news-board-item" data-news-category="${escapeHtml(item.category)}">
-              <img${cardImageClass(item)} src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />
+              <div class="publication-cover"><img${cardImageClass(item)} src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />${coverBrand(item)}</div>
               <div class="news-card-copy">
                 <p class="news-meta">${escapeHtml(categoryLabel(item.category))}</p>${placeholder ? "" : `<time class="news-date" datetime="${escapeHtml(item.date)}">${escapeHtml(formatDate(item.date))}</time>`}
                 <h3>${escapeHtml(item.title)}</h3>
                 <p>${escapeHtml(item.excerpt)}</p>
-                ${placeholder ? '<span class="news-placeholder-link">Próximamente</span>' : `<a class="news-placeholder-link" href="/noticias/${escapeHtml(item.slug)}/">Leer noticia</a>`}
+                ${placeholder ? `<a class="news-placeholder-link" href="${escapeHtml(item.href || "/noticias.html")}">Ver publicaciones</a>` : `<a class="news-placeholder-link" href="/noticias/${escapeHtml(item.slug)}/">Leer noticia</a>`}
               </div>
             </article>`;
 
@@ -191,7 +193,7 @@ const articlePage = (post) => {
           <h1>${escapeHtml(post.title)}</h1>
           <time class="article-date" datetime="${escapeHtml(post.date)}">${escapeHtml(formatDate(post.date))}</time>
           <p class="article-lead">${escapeHtml(post.excerpt)}</p>
-          <img class="article-image${post.image_fit === "contain" ? " article-image-contain" : ""}" src="/${cleanAssetPath(post.image)}" alt="${escapeHtml(post.image_alt)}"${imageDimensions(post)} decoding="async" fetchpriority="high" />
+          <div class="publication-cover"><img class="article-image${post.image_fit === "contain" ? " article-image-contain" : ""}" src="/${cleanAssetPath(post.image)}" alt="${escapeHtml(post.image_alt)}"${imageDimensions(post)} decoding="async" fetchpriority="high" />${coverBrand(post)}</div>
           ${post.image_caption ? `<p class="article-image-caption">${escapeHtml(post.image_caption)}</p>` : ""}
           <div class="article-body">${renderMarkdown(post.body).replace("<p>[[COMPARISON_TABLE]]</p>", renderComparison(post.comparison))}</div>
         </article>
