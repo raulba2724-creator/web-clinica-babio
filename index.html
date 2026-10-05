@@ -57,15 +57,12 @@
           "+34 683 59 31 13"
         ],
         "areaServed": "Sevilla",
-        "medicalSpecialty": [
-          "Implantes dentales",
-          "Prótesis dental",
-          "Estética dental",
-          "Cirugía oral",
-          "Periodoncia",
-          "Endodoncia",
-          "Ortodoncia"
-        ]
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday"], "opens": "09:00", "closes": "16:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday", "Thursday"], "opens": "12:00", "closes": "20:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "13:00" }
+        ],
+        "medicalSpecialty": "https://schema.org/Dentistry"
       }
     </script>
   </head>
@@ -1029,8 +1026,9 @@
               63 54 78 · 683 59 31 13
             </p>
 
+            <p>Horario habitual: lunes y martes, 9:00–16:00; miércoles y jueves, 12:00–20:00; viernes, 9:00–13:00. Sábados y domingos, cerrado.</p>
             <div class="contact-actions">
-              <a class="button button-primary" href="#contacto"
+              <a class="button button-primary" href="/contacto.html"
                 >Ver contacto</a
               >
               <a
