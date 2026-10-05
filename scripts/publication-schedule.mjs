@@ -19,7 +19,8 @@ export function publicationTime(value) {
 
 export function isVisible(post, now = Date.now()) {
   const scheduled = publicationTime(post.publish_at);
-  return post.published === true && (scheduled === null || scheduled <= now);
+  const dated = scheduled ?? (post.date ? publicationTime(String(post.date).slice(0,10) + 'T00:00') : null);
+  return post.published === true && dated !== null && dated <= now;
 }
 
 export function effectiveDate(post) {

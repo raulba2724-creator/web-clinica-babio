@@ -133,17 +133,19 @@ const articlePage = (post) => {
   const imageUrl = `${baseUrl}/${String(post.image).replace(/^\//, "")}`;
   const seoTitle = post.seo_title || `${post.title} | Clínica Dental Doctor Babío`;
   const metaDescription = post.meta_description || post.excerpt;
-  const dateModified = post.date_modified || post.date;
+  const datePublished = post.publish_at ? new Date(publicationTime(post.publish_at)).toISOString() : post.date;
+  const dateModified = !post.date_modified || post.date_modified === post.date ? datePublished : post.date_modified;
   const schemaData = {
     "@context": "https://schema.org", "@type": "BlogPosting", headline: post.title,
-    description: metaDescription, datePublished: post.publish_at ? new Date(publicationTime(post.publish_at)).toISOString() : post.date, dateModified, image: imageUrl,
+    description: metaDescription, datePublished, dateModified, image: imageUrl,
     mainEntityOfPage: canonical,
-    publisher: { "@type": "Dentist", name: "Clínica Dental Doctor Babío", url: `${baseUrl}/` },
+    publisher: { "@type": "Dentist", "@id": `${baseUrl}/#clinica`, name: "Clínica Dental Doctor Babío", url: `${baseUrl}/` },
   };
   if (post.author?.name) {
     schemaData.author = {
       "@type": "Person",
       name: post.author.name,
+      ...(post.author.name === "Dr. Raúl Babío Arjona" ? { "@id": `${baseUrl}/dr-raul-babio-arjona.html#persona`, url: `${baseUrl}/dr-raul-babio-arjona.html` } : {}),
       ...(post.author.jobTitle ? { jobTitle: post.author.jobTitle } : {}),
       ...(post.author.identifier ? { identifier: post.author.identifier } : {}),
     };
@@ -195,7 +197,7 @@ const articlePage = (post) => {
           <p class="article-lead">${escapeHtml(post.excerpt)}</p>
           <div class="publication-cover"><img class="article-image${post.image_fit === "contain" ? " article-image-contain" : ""}" src="/${cleanAssetPath(post.image)}" alt="${escapeHtml(post.image_alt)}"${imageDimensions(post)} decoding="async" fetchpriority="high" />${coverBrand(post)}</div>
           ${post.image_caption ? `<p class="article-image-caption">${escapeHtml(post.image_caption)}</p>` : ""}
-          <div class="article-body">${renderMarkdown(post.body).replace("<p>[[COMPARISON_TABLE]]</p>", renderComparison(post.comparison))}</div>
+          <div class="article-body">${renderMarkdown(post.body).replace("<p>[[COMPARISON_TABLE]]</p>", renderComparison(post.comparison)).replaceAll("Dr. Raúl Babío Arjona · Odontólogo", '<a href="/dr-raul-babio-arjona.html">Dr. Raúl Babío Arjona</a> · Odontólogo')}</div>
         </article>
       </main>
       <footer class="site-footer"><p>Clínica Dental Doctor Babío · C. Canal, 2, 1ºL · 41006 Sevilla</p><div class="footer-links"><a href="/">Inicio</a><a href="/#contacto">Contacto</a><a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad</a></div></footer>
@@ -238,9 +240,8 @@ await copySourceSite();
 
 const site = JSON.parse(await readFile(path.join(contentDirectory, "site.json"), "utf8"));
 const posts = await readPosts();
-const homeItems = site.news_placeholders.map((placeholder) =>
-  posts.find((post) => post.category === placeholder.category) || placeholder
-);
+// Both views use the same visibility filter and publication-time order.
+const homeItems = posts.slice(0, 3);
 
 let home = await readFile(path.join(root, "index.html"), "utf8");
 home = replaceMarker(home, "HOME_NEWS", `          <div class="news-grid">\n${homeItems.map(renderHomeCard).join("\n\n")}\n          </div>`);
@@ -260,9 +261,14 @@ for (const post of posts) {
   await writeFile(path.join(destination, "index.html"), articlePage(post));
 }
 
-const sitemapSource = await readFile(path.join(root, "sitemap.xml"), "utf8");
+let sitemapSource = await readFile(path.join(root, "sitemap.xml"), "utf8");
+const latestContentDate = posts.map(p => String(p.date_modified || p.date).slice(0,10)).sort().at(-1);
+if (latestContentDate) {
+  sitemapSource = sitemapSource.replace(/(<loc>https:\/\/clinicababio\.es\/(?:noticias\.html)?<\/loc>\s*<lastmod>)([^<]+)(<\/lastmod>)/g,
+    (_, start, date, end) => start + (latestContentDate > date ? latestContentDate : date) + end);
+}
 const closingTag = "</urlset>";
-const postUrls = posts.map((post) => `  <url>\n    <loc>${baseUrl}/noticias/${escapeHtml(post.slug)}/</loc>\n    <lastmod>${escapeHtml(String(post.date).slice(0, 10))}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`).join("\n");
+const postUrls = posts.map((post) => `  <url>\n    <loc>${baseUrl}/noticias/${escapeHtml(post.slug)}/</loc>\n    <lastmod>${escapeHtml(String(post.date_modified || post.date).slice(0, 10))}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`).join("\n");
 await writeFile(path.join(output, "sitemap.xml"), sitemapSource.replace(closingTag, `${postUrls ? `${postUrls}\n` : ""}${closingTag}`));
 
 const publishedFiles = await readdir(output);

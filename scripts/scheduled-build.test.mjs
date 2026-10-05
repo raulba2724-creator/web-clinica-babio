@@ -28,6 +28,21 @@ test('scheduled article is absent before deadline and present everywhere at dead
     await run('2026-09-21T07:30:00Z');
     for (const file of ['index.html','noticias.html','sitemap.xml']) assert.equal((await readFile(path.join(dir,'dist',file),'utf8')).includes('/noticias/probe/'),true);
     assert.match(await readFile(path.join(dir,'dist/noticias/probe/index.html'),'utf8'),/<h1>Prueba<\/h1>/);
+    // Same category must not collapse into a single home card.
+    for (const [slug, date, published] of [['older','2026-09-19',true],['second','2026-09-20',true],['newest','2026-09-22',true],['draft','2026-09-23',false],['future','2026-12-01',true]]) {
+      await writeFile(path.join(dir,'content/posts',slug+'.json'), JSON.stringify({title:slug,excerpt:'Resumen',date,category:'consejos',image:'/probe.png',image_alt:'Prueba',body:'Contenido',published}));
+    }
+    await run('2026-09-23T10:00:00Z');
+    const home = await readFile(path.join(dir,'dist/index.html'),'utf8');
+    const news = await readFile(path.join(dir,'dist/noticias.html'),'utf8');
+    const links = [...home.matchAll(/href="\/noticias\/([^/]+)\/"/g)].map(m=>m[1]);
+    assert.deepEqual(links,['newest','probe','second']);
+    for (const slug of links) assert.ok(news.includes('/noticias/'+slug+'/'));
+    assert.ok(news.includes('/noticias/older/'));
+    for (const slug of ['draft','future']) {
+      assert.ok(!home.includes('/noticias/'+slug+'/'));
+      assert.ok(!news.includes('/noticias/'+slug+'/'));
+    }
   } finally {
     // dir is an OS-created dedicated test directory, never a user workspace.
     await rm(dir,{recursive:true,force:true});

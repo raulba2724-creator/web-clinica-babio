@@ -14,6 +14,7 @@ test('future posts remain hidden, exact deadline releases, drafts stay hidden', 
   assert.equal(isVisible(p, deadline), true);
   assert.equal(isVisible({...p,published:false}, deadline+1), false);
   assert.equal(isVisible({published:true,date:'2026-01-01'}), true);
+  assert.equal(isVisible({published:true,date:'2026-12-01'}, Date.parse('2026-10-05')), false);
   assert.equal(effectiveDate({...p,date:'2026-09-01'}), '2026-09-21');
 });
 test('scheduler catches missed deadlines without duplicate deploys; respects rescheduling', () => {

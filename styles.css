@@ -1868,3 +1868,11 @@ h3 {
 .article-body h2 { font-size: clamp(1.35rem, 2.2vw, 1.8rem); line-height: 1.35; }
 .article-body h3 { line-height: 1.4; }
 
+.professional-intro { display:grid; grid-template-columns:minmax(0,1fr) 240px; gap:2rem; align-items:center; margin-bottom:2.5rem; }
+.professional-photo { margin:0; }
+.professional-photo img { display:block; width:100%; height:auto; border-radius:20px; }
+.professional-page .article-body { margin-top:2rem; }
+@media (max-width:700px) {
+  .professional-intro { grid-template-columns:1fr; }
+  .professional-photo { width:min(220px,100%); margin-inline:auto; }
+}

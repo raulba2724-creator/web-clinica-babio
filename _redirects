@@ -1,0 +1,24 @@
+# Preserve established .html canonicals; exact routes only.
+/implantes-dentales-sevilla /implantes-dentales-sevilla.html 301!
+/implantes-dentales-sevilla/ /implantes-dentales-sevilla.html 301!
+/implantes-carga-inmediata-sevilla /implantes-carga-inmediata-sevilla.html 301!
+/implantes-carga-inmediata-sevilla/ /implantes-carga-inmediata-sevilla.html 301!
+/implantes-sector-estetico-sevilla /implantes-sector-estetico-sevilla.html 301!
+/implantes-sector-estetico-sevilla/ /implantes-sector-estetico-sevilla.html 301!
+/implantes-fracasados-sevilla /implantes-fracasados-sevilla.html 301!
+/implantes-fracasados-sevilla/ /implantes-fracasados-sevilla.html 301!
+/dr-raul-babio-arjona /dr-raul-babio-arjona.html 301!
+/dr-raul-babio-arjona/ /dr-raul-babio-arjona.html 301!
+/rehabilitacion-oral-sevilla /rehabilitacion-oral-sevilla.html 301!
+/rehabilitacion-oral-sevilla/ /rehabilitacion-oral-sevilla.html 301!
+/noticias /noticias.html 301!
+/noticias/ /noticias.html 301!
+/contacto /contacto.html 301!
+/contacto/ /contacto.html 301!
+/aviso-legal /aviso-legal.html 301!
+/aviso-legal/ /aviso-legal.html 301!
+/privacidad /privacidad.html 301!
+/privacidad/ /privacidad.html 301!
+/cookies /cookies.html 301!
+/cookies/ /cookies.html 301!
+/index.html / 301!
