@@ -1964,3 +1964,34 @@ h1, h2, h3, p, li, figcaption, .news-placeholder-link { overflow-wrap: anywhere;
   .home-page .hero-home::before { background-position: center 100px; background-size: 180% auto; }
   .home-page .hero-whatsapp { display: flex; width: 100%; }
 }
+
+/* Cajas transparentes de portada sobre una única marca de agua clara. */
+.home-page main > .hero,
+.home-page main > .content-section,
+.home-page main > .contact-section,
+.home-page .trust-strip,
+.home-page .site-footer,
+.home-page .news-card,
+.home-page .member-card,
+.home-page .feature-card,
+.home-page .service-card,
+.home-page .clinic-note,
+.home-page .detail-card,
+.home-page .quote-card,
+.home-page .profile-card,
+.home-page .panel-card,
+.home-page .trust-bubble,
+.home-page .trust-review-card,
+.home-page .hero-slide figcaption,
+.home-page .facilities-slide figcaption,
+.home-page .panel-service-links a {
+  background: transparent;
+}
+.home-page .hero-home::before { content: none; }
+.home-page .site-background::before {
+  background-position: center center;
+  background-size: min(1500px, 130vw) auto;
+  opacity: .12;
+}
+.home-page .panel-service-links a:hover,
+.home-page .panel-service-links a:focus-visible { background: rgba(255,255,255,.3); }
