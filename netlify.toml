@@ -5,6 +5,10 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Keep internal links aligned with the site's established .html canonicals.
+[build.processing.html]
+  pretty_urls = false
+
 [[headers]]
   for = "/admin/*"
   [headers.values]
