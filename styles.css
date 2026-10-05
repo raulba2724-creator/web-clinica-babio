@@ -1991,7 +1991,7 @@ h1, h2, h3, p, li, figcaption, .news-placeholder-link { overflow-wrap: anywhere;
 .home-page .site-background::before {
   background-position: center center;
   background-size: min(1500px, 130vw) auto;
-  opacity: .12;
+  opacity: .065;
 }
 .home-page .panel-service-links a:hover,
 .home-page .panel-service-links a:focus-visible { background: rgba(255,255,255,.3); }
