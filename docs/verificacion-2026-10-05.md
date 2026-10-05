@@ -4,7 +4,7 @@
 
 Implementación local terminada sobre una copia limpia de `main`, base `54c97d9fbbc21907c7ef80f2eef98cd181408c68`. No se han sobrescrito cambios ajenos ni modificado el repositorio original fuera del área de trabajo permitida.
 
-**No publicado.** El primer intento de crear un objeto en GitHub fue rechazado por la herramienta: `MCP tool call requires approval, but approval policy is never`. No se creó el commit remoto, no se actualizó `main` y no hay un despliegue nuevo de Netlify que verificar. No se intentó eludir este control por otra vía.
+**Publicado.** El usuario subió el commit `d740f870986285b88576590ceb7ca6c739835008` a `main`. El 5 de octubre de 2026 se verificaron en el navegador público la portada nueva, implantes fracasados, Privacidad, perfil y artículo de cuidados, además de la resolución del alias de implantes hacia `.html`. No se ha consultado el registro interno de despliegue de Netlify.
 
 ## Cambios implementados
 
@@ -51,10 +51,29 @@ La medición detectó imágenes excesivas y recursos que bloqueaban el renderiza
 
 ## Bloqueos y pendientes
 
-1. Publicar el commit local desde una sesión con escritura autorizada en GitHub; confirmar despliegue Netlify y repetir pruebas públicas y PageSpeed. Esta sesión no puede aprobar escrituras del conector.
+1. Publicación y seis mediciones públicas realizadas. Persisten oportunidades de rendimiento en fuentes/CSS bloqueantes y tamaño de imágenes. La puntuación SEO de Lighthouse es 92: señala un enlace genérico. Esto no es una medida de posicionamiento.
 2. Search Console: la cuenta abierta no muestra propiedades accesibles. No se ha podido comprobar el estado actual de indexación, otros envíos, acciones manuales o seguridad; tampoco enviar sitemap ni solicitar indexación. No se concluye que nunca se haya enviado. No se utiliza Indexing API.
 3. Las herramientas de navegación bloquearon la apertura directa de `robots.txt` y `sitemap.xml` en producción (`ERR_BLOCKED_BY_CLIENT`); la red de terminal tampoco está disponible. La validación local no sustituye comprobar HTTP, cabeceras X-Robots-Tag y redirecciones 301 en el servidor público. La configuración local mantiene `noindex` solo para el administrador y alias exactos sin cadenas previstas.
 4. Horario discrepante: web/documentación, lunes-martes 09–16 y viernes 09–13; ficha de Google, lunes-martes 09–17 y viernes 09–13:30. Miércoles-jueves 12–20 coinciden. Se conserva el horario documentado en la web, pendiente de confirmación de la clínica. No se edita Google Business Profile.
 5. La colaboración en Aljamar se apoya en el CV disponible (desde 2022–actualidad); su continuidad al día de publicación necesita confirmación directa si el CV no está actualizado. No se ha encontrado una fecha diferenciada y acreditada de inicio de la dirección.
 
 No se atribuye una revisión clínica real a la revisión editorial realizada ni se afirma una mejora de posicionamiento.
+
+
+## Verificación pública posterior a la publicación
+
+PageSpeed Insights, 5/10/2026 a las 15:37 CEST (laboratorio):
+
+| Página | Móvil | Escritorio | LCP móvil | LCP escritorio |
+|---|---:|---:|---:|---:|
+| Portada | 76 | 98 | 4,6 s | 1,0 s |
+| Implantes fracasados | 92 | 99 | 2,7 s | 0,7 s |
+| Cuidados de implantes | 90 | 100 | 2,7 s | 0,7 s |
+
+Accesibilidad automatizada 100 y TBT 0 en las seis mediciones. Sin datos CrUX. Las diferencias respecto a la línea base son resultados de laboratorio y pueden variar; no prueban una mejora de posicionamiento.
+
+- https://pagespeed.web.dev/analysis/https-clinicababio-es/fz31hphtdb
+- https://pagespeed.web.dev/analysis/https-clinicababio-es-implantes-fracasados-sevilla-html/twlsgwj4b3
+- https://pagespeed.web.dev/analysis/https-clinicababio-es-noticias-como-cuidar-implantes-dentales/gy9pmudl0a
+
+Se corrigen además cuatro referencias a 35 años en la página general de implantes, sin respaldo documental localizado. Cambios exclusivamente editoriales; estructura, URLs y marcado conservados.
