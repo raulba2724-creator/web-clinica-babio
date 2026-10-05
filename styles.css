@@ -1951,3 +1951,16 @@ h1, h2, h3, p, li, figcaption, .news-placeholder-link { overflow-wrap: anywhere;
   .home-page .hero-brand-subtitle { font-size: .95rem; margin-top: 10px; }
   .home-page .hero-presentation p { font-size: 1rem; line-height: 1.65; }
 }
+
+/* Fondo blanco de marca e iconos de contacto. */
+.home-page .site-background { background: #fff; opacity: 1; }
+.home-page .site-background::before { background-image: url("assets/images/logo-fondo-blanco.png"); background-size: min(1400px, 120vw) auto; opacity: .12; filter: none; }
+.home-page .site-background::after { background: none; }
+.home-page .hero-home { isolation: isolate; }
+.home-page .hero-home::before { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none; background: url("assets/images/logo-fondo-blanco.png") center 110px / 120% auto no-repeat; opacity: .12; }
+.home-page .hero-whatsapp { margin-top: 8px; background: #086b36; color: #fff; }
+.home-page .hero-whatsapp:hover, .home-page .hero-whatsapp:focus-visible { background: #07592d; }
+@media (max-width: 640px) {
+  .home-page .hero-home::before { background-position: center 100px; background-size: 180% auto; }
+  .home-page .hero-whatsapp { display: flex; width: 100%; }
+}
