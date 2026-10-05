@@ -139,7 +139,11 @@ const articlePage = (post) => {
     "@context": "https://schema.org", "@type": "BlogPosting", headline: post.title,
     description: metaDescription, datePublished, dateModified, image: imageUrl,
     mainEntityOfPage: canonical,
-    publisher: { "@type": "Dentist", "@id": `${baseUrl}/#clinica`, name: "Clínica Dental Doctor Babío", url: `${baseUrl}/` },
+    publisher: {
+      "@type": "Dentist", "@id": `${baseUrl}/#clinica`, name: "Clínica Dental Doctor Babío", url: `${baseUrl}/`,
+      image: `${baseUrl}/assets/images/equipo-clinica.jpg`, telephone: "+34 954 65 95 54",
+      address: { "@type": "PostalAddress", streetAddress: "C. Canal, 2, 1ºL", addressLocality: "Sevilla", postalCode: "41006", addressCountry: "ES" },
+    },
   };
   if (post.author?.name) {
     schemaData.author = {
