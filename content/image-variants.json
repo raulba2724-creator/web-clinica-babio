@@ -1,0 +1,229 @@
+{
+  "assets/images/logo-unificado.png": {
+    "src": "assets/optimized/logo-unificado.webp",
+    "width": 256,
+    "height": 165
+  },
+  "assets/images/doctor-con-paciente.jpg": {
+    "width": 1360,
+    "height": 827,
+    "src": "assets/optimized/doctor-con-paciente.webp"
+  },
+  "assets/images/equipo-clinica.jpg": {
+    "width": 1360,
+    "height": 944,
+    "src": "assets/optimized/equipo-clinica.webp"
+  },
+  "assets/images/dr-raul-babio-arjona.webp": {
+    "width": 450,
+    "height": 670
+  },
+  "assets/images/implantes-dentales-ilustracion.jpg": {
+    "width": 626,
+    "height": 465
+  },
+  "assets/images/raul-y-elena.jpg": {
+    "width": 574,
+    "height": 1020
+  },
+  "assets/images/caso-sector-estetico-despues.png": {
+    "width": 1400,
+    "height": 602,
+    "src": "assets/optimized/caso-sector-estetico-despues.webp"
+  },
+  "assets/images/equipo-higienistas.jpg": {
+    "width": 1360,
+    "height": 944,
+    "src": "assets/optimized/equipo-higienistas.webp"
+  },
+  "assets/images/doctores-babio-negro.jpg": {
+    "width": 816,
+    "height": 1020
+  },
+  "assets/images/odontologia-general-ilustracion.png": {
+    "width": 1400,
+    "height": 840,
+    "src": "assets/optimized/odontologia-general-ilustracion.webp"
+  },
+  "assets/images/noticias-calendario.png": {
+    "width": 1400,
+    "height": 876,
+    "src": "assets/optimized/noticias-calendario.webp"
+  },
+  "assets/images/doctores-babio.jpg": {
+    "width": 979,
+    "height": 1020,
+    "src": "assets/optimized/doctores-babio.webp"
+  },
+  "assets/images/mari-carmen-rivera-soto.jpg": {
+    "width": 945,
+    "height": 1020
+  },
+  "assets/images/elena-suarez.jpg": {
+    "width": 765,
+    "height": 1020
+  },
+  "assets/images/mari-paz-pedrero-gonzalez.jpg": {
+    "width": 608,
+    "height": 1020
+  },
+  "assets/images/instalaciones-01.jpg": {
+    "width": 1360,
+    "height": 907,
+    "src": "assets/optimized/instalaciones-01.webp"
+  },
+  "assets/images/instalaciones-02.jpg": {
+    "width": 1360,
+    "height": 907,
+    "src": "assets/optimized/instalaciones-02.webp"
+  },
+  "assets/images/instalaciones-03.jpg": {
+    "width": 1360,
+    "height": 907,
+    "src": "assets/optimized/instalaciones-03.webp"
+  },
+  "assets/images/instalaciones-04.jpg": {
+    "width": 1360,
+    "height": 907,
+    "src": "assets/optimized/instalaciones-04.webp"
+  },
+  "assets/images/instalaciones-05.jpg": {
+    "width": 1360,
+    "height": 907,
+    "src": "assets/optimized/instalaciones-05.webp"
+  },
+  "assets/images/instalaciones-06.jpg": {
+    "width": 1360,
+    "height": 907,
+    "src": "assets/optimized/instalaciones-06.webp"
+  },
+  "assets/images/protesis-dentales-ilustracion.jpg": {
+    "width": 555,
+    "height": 376
+  },
+  "assets/images/estetica-dental-ilustracion.jpg": {
+    "width": 978,
+    "height": 700
+  },
+  "assets/images/cirugia-oral-ilustracion.jpg": {
+    "width": 992,
+    "height": 672
+  },
+  "assets/images/periodoncia-ilustracion.jpg": {
+    "width": 1024,
+    "height": 1024
+  },
+  "assets/images/endodoncia-ilustracion.jpg": {
+    "width": 800,
+    "height": 1067,
+    "src": "assets/optimized/endodoncia-ilustracion.webp"
+  },
+  "assets/images/ortodoncia-ilustracion.webp": {
+    "width": 768,
+    "height": 768
+  },
+  "assets/images/ortodoncia-invisible-ilustracion.jpg": {
+    "width": 679,
+    "height": 452
+  },
+  "assets/images/caso-implantes-carga-inmediata-sonrisa.png": {
+    "width": 1068,
+    "height": 1328,
+    "src": "assets/optimized/caso-implantes-carga-inmediata-sonrisa.webp"
+  },
+  "assets/images/caso-implantes-carga-inmediata-intraoral.png": {
+    "width": 1076,
+    "height": 1046,
+    "src": "assets/optimized/caso-implantes-carga-inmediata-intraoral.webp"
+  },
+  "assets/images/caso-sector-estetico-antes.png": {
+    "width": 1400,
+    "height": 562,
+    "src": "assets/optimized/caso-sector-estetico-antes.webp"
+  },
+  "assets/uploads/apicectomia-que-es-cuando-es-necesaria-sevilla.png": {
+    "width": 1400,
+    "height": 788,
+    "src": "assets/optimized/apicectomia-que-es-cuando-es-necesaria-sevilla.webp"
+  },
+  "assets/uploads/bruxismo-consecuencias-no-tratado-sevilla.png": {
+    "width": 1400,
+    "height": 933,
+    "src": "assets/optimized/bruxismo-consecuencias-no-tratado-sevilla.webp"
+  },
+  "assets/uploads/como-cuidar-implantes-dentales-web.png": {
+    "width": 1400,
+    "height": 788,
+    "src": "assets/optimized/como-cuidar-implantes-dentales-web.webp"
+  },
+  "assets/uploads/complementos-cepillado-higiene-bucodental-web.png": {
+    "width": 1400,
+    "height": 788,
+    "src": "assets/optimized/complementos-cepillado-higiene-bucodental-web.webp"
+  },
+  "assets/uploads/consecuencias-tabaco-boca.png": {
+    "width": 1400,
+    "height": 788,
+    "src": "assets/optimized/consecuencias-tabaco-boca.webp"
+  },
+  "assets/uploads/diseno-de-sonrisa-sevilla.png": {
+    "width": 1400,
+    "height": 933,
+    "src": "assets/optimized/diseno-de-sonrisa-sevilla.webp"
+  },
+  "assets/uploads/efecto-septiembre-tratamiento-dental-sevilla-web.png": {
+    "width": 1400,
+    "height": 788,
+    "src": "assets/optimized/efecto-septiembre-tratamiento-dental-sevilla-web.webp"
+  },
+  "assets/uploads/encias-corazon-periodontitis-salud-cardiovascular.png": {
+    "width": 1400,
+    "height": 788,
+    "src": "assets/optimized/encias-corazon-periodontitis-salud-cardiovascular.webp"
+  },
+  "assets/uploads/endodoncia-cuando-es-necesaria-sevilla.png": {
+    "width": 1400,
+    "height": 933,
+    "src": "assets/optimized/endodoncia-cuando-es-necesaria-sevilla.webp"
+  },
+  "assets/uploads/fundas-zirconio-monolitico-sevilla-web.png": {
+    "width": 1400,
+    "height": 788,
+    "src": "assets/optimized/fundas-zirconio-monolitico-sevilla-web.webp"
+  },
+  "assets/uploads/higiene-bucodental-periodontitis-sevilla.webp": {
+    "width": 1400,
+    "height": 933,
+    "src": "assets/optimized/higiene-bucodental-periodontitis-sevilla.webp"
+  },
+  "assets/uploads/horario-clinica-dental-sevilla-septiembre-2026.webp": {
+    "width": 1400,
+    "height": 933,
+    "src": "assets/optimized/horario-clinica-dental-sevilla-septiembre-2026.webp"
+  },
+  "assets/uploads/implantes-dentales-solucion-segura-comoda-sevilla-web.png": {
+    "width": 1400,
+    "height": 788,
+    "src": "assets/optimized/implantes-dentales-solucion-segura-comoda-sevilla-web.webp"
+  },
+  "assets/uploads/injerto-de-encia-sevilla-web.png": {
+    "width": 1400,
+    "height": 788,
+    "src": "assets/optimized/injerto-de-encia-sevilla-web.webp"
+  },
+  "assets/uploads/ortodoncia-invisible-vs-convencional.png": {
+    "width": 1400,
+    "height": 788,
+    "src": "assets/optimized/ortodoncia-invisible-vs-convencional.webp"
+  },
+  "assets/uploads/sensibilidad-dental-causas-tratamiento-sevilla.png": {
+    "width": 1400,
+    "height": 933,
+    "src": "assets/optimized/sensibilidad-dental-causas-tratamiento-sevilla.webp"
+  },
+  "assets/uploads/sonrisa-gingival-tratamiento-sevilla.png": {
+    "width": 1400,
+    "height": 933,
+    "src": "assets/optimized/sonrisa-gingival-tratamiento-sevilla.webp"
+  }
+}

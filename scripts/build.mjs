@@ -8,6 +8,34 @@ const output = path.join(root, "dist");
 const contentDirectory = path.join(root, "content");
 const postsDirectory = path.join(contentDirectory, "posts");
 const baseUrl = "https://clinicababio.es";
+const imageVariants = JSON.parse(await readFile(path.join(contentDirectory, 'image-variants.json'), 'utf8'));
+
+// Use pre-optimised derivatives; preserve the source photographs and artwork.
+const optimiseImages = (html) => {
+  let firstContentImage = true;
+  html = html.replace(/<img\b[^>]*>/g, tag => {
+    const src = tag.match(/\bsrc="([^"]+)"/)?.[1];
+    if (!src) return tag;
+    const item = imageVariants[src.replace(/^\//,'')];
+    const logo = /brand-logo|cover-brand/.test(tag);
+    const lead = !logo && firstContentImage;
+    if (!logo) firstContentImage = false;
+    if (item) {
+      if (item.src) tag = tag.replace(`src="${src}"`, `src="/${item.src}"`);
+      tag = tag.replace(/\s(?:width|height)="[^"]*"/g,'');
+      tag = tag.replace(/\s*\/?>(?=$)/, ` width="${item.width}" height="${item.height}" />`);
+    }
+    if (!/\bloading=/.test(tag) && !logo && !lead) tag = tag.replace(' />',' loading="lazy" />');
+    if (!/\bdecoding=/.test(tag)) tag = tag.replace(' />',' decoding="async" />');
+    if (lead && !/\bfetchpriority=/.test(tag)) tag = tag.replace(' />',' fetchpriority="high" />');
+    return tag;
+  });
+  // Secondary carousel images are requested only when that slide is shown.
+  html = html.replace(/(<figure class="(?:hero|facilities)-slide">)([\s\S]*?)(<\/figure>)/g,
+    (_,start,body,end) => start+body.replace(/\bsrc="([^"]+)"/,'data-src="$1"')+end);
+  return html.replace(/class="((?:hero|facilities)-slide-dots)" aria-hidden="true"/g,'class="$1"')
+    .replaceAll('preload="metadata"','preload="none"');
+};
 
 if (path.dirname(output) !== root || path.basename(output) !== "dist") {
   throw new Error("La carpeta de publicación no es segura.");
@@ -48,7 +76,7 @@ const renderHomeCard = (item) => {
               <p class="news-meta">${escapeHtml(isPost ? categoryLabel(item.category) : item.label)}</p>
               <h3>${escapeHtml(item.title)}</h3>
               <p>${escapeHtml(item.excerpt)}</p>
-              <a class="news-placeholder-link" href="${href}">${isPost ? "Leer noticia" : "Ver publicaciones"}</a>
+              <a class="news-placeholder-link" href="${href}">${isPost ? `Leer: ${escapeHtml(item.title)}` : "Ver publicaciones"}</a>
             </div>
           </article>`;
 };
@@ -59,7 +87,7 @@ const renderBoardCard = (item, placeholder = false) => `            <article cla
                 <p class="news-meta">${escapeHtml(categoryLabel(item.category))}</p>${placeholder ? "" : `<time class="news-date" datetime="${escapeHtml(item.date)}">${escapeHtml(formatDate(item.date))}</time>`}
                 <h3>${escapeHtml(item.title)}</h3>
                 <p>${escapeHtml(item.excerpt)}</p>
-                ${placeholder ? `<a class="news-placeholder-link" href="${escapeHtml(item.href || "/noticias.html")}">Ver publicaciones</a>` : `<a class="news-placeholder-link" href="/noticias/${escapeHtml(item.slug)}/">Leer noticia</a>`}
+                ${placeholder ? `<a class="news-placeholder-link" href="${escapeHtml(item.href || "/noticias.html")}">Ver publicaciones</a>` : `<a class="news-placeholder-link" href="/noticias/${escapeHtml(item.slug)}/">Leer: ${escapeHtml(item.title)}</a>`}
               </div>
             </article>`;
 
@@ -228,13 +256,15 @@ const readPosts = async () => {
 };
 
 const copySourceSite = async () => {
-  const excluded = new Set([".git", ".github", ".gitignore", "dist", "content", "scripts", "node_modules", "netlify.toml", "PUBLICACIONES.md"]);
   for (const entry of await readdir(root, { withFileTypes: true })) {
-    if (excluded.has(entry.name)) continue;
+    if (!['assets', 'admin', '_redirects', 'robots.txt', 'sitemap.xml'].includes(entry.name) && !/\.(html|css|js)$/.test(entry.name)) continue;
     const source = path.join(root, entry.name);
     const destination = path.join(output, entry.name);
     if (entry.isDirectory()) await cp(source, destination, { recursive: true });
-    else if (entry.isFile()) await cp(source, destination);
+    else if (entry.isFile()) {
+      if (entry.name.endsWith('.html')) await writeFile(destination, optimiseImages(await readFile(source,'utf8')));
+      else await cp(source, destination);
+    }
   }
 };
 
@@ -250,19 +280,19 @@ const homeItems = posts.slice(0, 3);
 let home = await readFile(path.join(root, "index.html"), "utf8");
 home = replaceMarker(home, "HOME_NEWS", `          <div class="news-grid">\n${homeItems.map(renderHomeCard).join("\n\n")}\n          </div>`);
 home = replaceMarker(home, "SECTOR_CASE", renderSectorCase(site.sector_case));
-await writeFile(path.join(output, "index.html"), home);
+await writeFile(path.join(output, "index.html"), optimiseImages(home));
 
 let news = await readFile(path.join(root, "noticias.html"), "utf8");
 const boardCards = posts.length
   ? posts.map((post) => renderBoardCard(post)).join("\n\n")
   : site.news_placeholders.map((item) => renderBoardCard(item, true)).join("\n\n");
 news = replaceMarker(news, "NEWS_BOARD", `          <div class="news-board-grid">\n${boardCards}\n          </div>`);
-await writeFile(path.join(output, "noticias.html"), news);
+await writeFile(path.join(output, "noticias.html"), optimiseImages(news));
 
 for (const post of posts) {
   const destination = path.join(output, "noticias", post.slug);
   await mkdir(destination, { recursive: true });
-  await writeFile(path.join(destination, "index.html"), articlePage(post));
+  await writeFile(path.join(destination, "index.html"), optimiseImages(articlePage(post)));
 }
 
 let sitemapSource = await readFile(path.join(root, "sitemap.xml"), "utf8");

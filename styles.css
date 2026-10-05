@@ -3,7 +3,7 @@
   --surface: rgba(255, 255, 255, 0.88);
   --surface-strong: #ffffff;
   --ink: #14293e;
-  --muted: #5f7080;
+  --muted: #435569;
   --line: rgba(20, 41, 62, 0.12);
   --primary: #0f4572;
   --primary-deep: #0b3356;
@@ -209,7 +209,7 @@ img {
 .contact-card,
 .detail-card,
 .quote-card {
-  animation: rise 0.6s ease both;
+  animation: rise 0.6s ease;
 }
 
 .eyebrow {
@@ -1681,7 +1681,7 @@ h3 {
 
 @keyframes rise {
   from {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(18px);
   }
 
@@ -1872,6 +1872,66 @@ h3 {
 .professional-photo { margin:0; }
 .professional-photo img { display:block; width:100%; height:auto; border-radius:20px; }
 .professional-page .article-body { margin-top:2rem; }
+/* Opaque reading surfaces keep contrast independent of the branded backdrop. */
+main > .hero, main > .content-section, main > .contact-section,
+.trust-strip, .site-footer, .legal-main, main > p {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 3vw, 36px);
+  margin-block: 24px;
+}
+.site-header { background: #fff; }
+.home-page .site-background::before { opacity: .08; }
+.hero-home { overflow: visible; align-items: start; }
+.hero-copy { overflow: visible; }
+.hero-title { max-width: 18ch; font-size: clamp(2.3rem, 4.5vw, 4rem); line-height: 1.1; letter-spacing: -.02em; text-transform: none; }
+.hero-copy p.hero-intro-text { max-width: 40ch; font-size: 1.2rem !important; line-height: 1.65; }
+.hero-copy .hero-text { font-size: 1.15rem; line-height: 1.7; }
+.hero-actions { margin: 22px 0 8px; }
+.hero-panel, .hero-copy, .brand-logo, .menu-toggle { min-width: 0; }
+.brand-logo, .menu-toggle { flex-shrink: 0; }
+.button { padding-block: 12px; text-align: center; overflow-wrap: anywhere; }
+.button-whatsapp { background: #086b36; }
+.treatment-copy { line-height: 1.75; }
+.treatment-copy h2 { font-size: clamp(1.5rem, 2.8vw, 2.3rem); line-height: 1.25; margin-bottom: 22px; }
+.treatment-copy > p, .treatment-copy > ul, .treatment-copy > ol { max-width: 76ch; }
+.treatment-copy > h3 { margin-top: 24px; }
+.treatment-copy a:not(.button), .hero-copy p a, .story-copy a, main > p a { color: var(--primary); text-decoration: underline; text-underline-offset: .18em; }
+.illustration-note { color: var(--muted); font-size: .9rem; line-height: 1.6; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
+.analytics-settings { position: static; display: block; width: fit-content; max-width: calc(100% - 32px); margin: 0 auto 24px; background: #fff; min-height: 44px; }
+.analytics-consent { background: #fff; max-height: calc(100dvh - 24px); overflow-y: auto; }
+.analytics-consent-actions .button { white-space: normal; }
+.hero-slide-dots, .facilities-slide-dots { bottom: 8px; left: 16px; right: auto; }
+.hero-dot, .facilities-dot { width: 28px; height: 28px; border: 8px solid #fff; background: #435569; }
+.hero-dot.is-active, .facilities-dot.is-active { background: #0f4572; outline: 2px solid #0f4572; }
+.hero-slide figcaption, .facilities-slide figcaption { background: #fff; color: var(--muted); padding-bottom: 52px; }
+.slideshow-toggle { position: absolute; z-index: 3; right: 12px; top: 12px; border: 1px solid #0f4572; border-radius: 12px; background: #fff; color: #0f4572; padding: 10px 14px; font: inherit; font-size: .85rem; cursor: pointer; }
+.hero-slide:not(.is-active), .facilities-slide:not(.is-active) { visibility: hidden; }
+.hero-slide, .facilities-slide { transition: none; }
+img { height: auto; }
+h1, h2, h3, p, li, figcaption, .news-placeholder-link { overflow-wrap: anywhere; }
+:focus-visible { outline: 3px solid #0f4572; outline-offset: 4px; }
+[id] { scroll-margin-top: 130px; }
+@media (max-width: 980px) {
+  .hero-single { grid-template-columns: minmax(0, 1fr); }
+  .site-header { position: relative; top: 0; }
+}
+@media (max-width: 640px) {
+  main > .hero, main > .content-section, main > .contact-section, .trust-strip, .site-footer { padding: 20px; margin-block: 16px; }
+  .site-header { gap: 8px; padding: 10px; margin-bottom: 14px; }
+  .brand { gap: 8px; }
+  .brand-logo { width: 44px; height: 44px; }
+  .brand-copy strong { font-size: .85rem; }
+  .hero-title { font-size: 2.35rem; }
+  .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
+  .article-page article { padding: 22px 18px; }
+  .legal-grid { grid-template-columns: minmax(0,1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
 @media (max-width:700px) {
   .professional-intro { grid-template-columns:1fr; }
   .professional-photo { width:min(220px,100%); margin-inline:auto; }

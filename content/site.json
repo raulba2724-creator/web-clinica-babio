@@ -28,13 +28,13 @@
   ],
   "sector_case": {
     "title": "Sector estético",
-    "description": "Cuando la sonrisa está muy expuesta, no basta con reponer una pieza: hay que pensar en encía, forma, color, perfil de emergencia y naturalidad final. Son tratamientos que exigen sensibilidad estética y un criterio muy preciso.",
+    "description": "En la zona visible de la sonrisa estudiamos el hueso, la encía, la forma y el color del diente. También planificamos el perfil de emergencia: la forma en que la corona sale de la encía.",
     "before_image": "/assets/images/caso-sector-estetico-antes.png",
     "before_alt": "Antes de un tratamiento en sector estético",
     "before_caption": "Situación inicial del sector anterior.",
     "after_image": "/assets/images/caso-sector-estetico-despues.png",
     "after_alt": "Después de un tratamiento en sector estético",
-    "after_caption": "Resultado final tras la rehabilitación estética.",
+    "after_caption": "Resultado de este caso individual; no garantiza el mismo resultado en otras personas.",
     "video": "/assets/videos/caso-sector-estetico.mp4",
     "video_caption": "Resultado del tratamiento de sector estético en movimiento."
   }

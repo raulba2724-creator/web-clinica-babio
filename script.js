@@ -26,25 +26,60 @@ const setupSlideshow = (slideSelector, dotSelector, intervalMs = 4000) => {
 
   let activeSlideIndex = 0;
   let slideIntervalId = null;
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let paused = motion.matches;
+  const container = slides[0].parentElement;
+  const pauseButton = document.createElement('button');
+  pauseButton.type = 'button';
+  pauseButton.className = 'slideshow-toggle';
+  container.append(pauseButton);
+  const updatePauseLabel = () => {
+    pauseButton.textContent = paused ? 'Reanudar imágenes' : 'Pausar imágenes';
+    pauseButton.setAttribute('aria-pressed', String(paused));
+  };
+  const loadSlide = (slide) => {
+    slide.querySelectorAll('img[data-src]').forEach(img => {
+      img.src = img.dataset.src;
+      if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+      delete img.dataset.src;
+      delete img.dataset.srcset;
+    });
+  };
 
   const showSlide = (index) => {
     slides.forEach((slide, slideIndex) => {
       slide.classList.toggle("is-active", slideIndex === index);
+      slide.setAttribute('aria-hidden', String(slideIndex !== index));
+      if (slideIndex === index) loadSlide(slide);
     });
 
     dots.forEach((dot, dotIndex) => {
       dot.classList.toggle("is-active", dotIndex === index);
+      dot.setAttribute('aria-pressed', String(dotIndex === index));
     });
 
     activeSlideIndex = index;
   };
 
   const startSlideshow = () => {
+    if (slideIntervalId !== null) window.clearInterval(slideIntervalId);
+    if (paused || document.hidden) return;
     slideIntervalId = window.setInterval(() => {
       const nextIndex = (activeSlideIndex + 1) % slides.length;
       showSlide(nextIndex);
     }, intervalMs);
   };
+
+  pauseButton.addEventListener('click', () => {
+    paused = !paused;
+    updatePauseLabel();
+    restartSlideshow();
+  });
+  motion.addEventListener('change', () => {
+    paused = motion.matches;
+    updatePauseLabel();
+    restartSlideshow();
+  });
 
   const restartSlideshow = () => {
     if (slideIntervalId !== null) {
@@ -62,7 +97,16 @@ const setupSlideshow = (slideSelector, dotSelector, intervalMs = 4000) => {
   });
 
   showSlide(0);
-  startSlideshow();
+  updatePauseLabel();
+  const observer = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) {
+      startSlideshow();
+      observer.disconnect();
+    }
+  });
+
+  document.addEventListener('visibilitychange', restartSlideshow);
+  observer.observe(container);
 };
 
 setupSlideshow(".hero-slide", ".hero-dot");

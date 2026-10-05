@@ -15,6 +15,7 @@ test('scheduled article is absent before deadline and present everywhere at dead
     await writeFile(path.join(dir,'index.html'),'<!-- CMS:HOME_NEWS_START --><!-- CMS:HOME_NEWS_END --><!-- CMS:SECTOR_CASE_START --><!-- CMS:SECTOR_CASE_END -->');
     await writeFile(path.join(dir,'noticias.html'),'<!-- CMS:NEWS_BOARD_START --><!-- CMS:NEWS_BOARD_END -->');
     await writeFile(path.join(dir,'sitemap.xml'),'<urlset></urlset>');
+    await writeFile(path.join(dir,'content/image-variants.json'),'{}');
     await writeFile(path.join(dir,'content/site.json'),JSON.stringify({news_placeholders:[{category:'consejos',title:'Reserva'}],sector_case:{}}));
     await writeFile(path.join(dir,'content/posts/probe.json'),JSON.stringify({title:'Prueba',excerpt:'Resumen',date:'2026-09-21',category:'consejos',image:'/probe.png',image_alt:'Prueba',body:'Contenido',published:true,publish_at:'2026-09-21T09:30'}));
     // Test clock is isolated to this temporary fixture, never used in production.
