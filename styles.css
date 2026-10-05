@@ -1936,3 +1936,18 @@ h1, h2, h3, p, li, figcaption, .news-placeholder-link { overflow-wrap: anywhere;
   .professional-intro { grid-template-columns:1fr; }
   .professional-photo { width:min(220px,100%); margin-inline:auto; }
 }
+
+/* Presentación de marca: logotipo separado de las superficies de lectura. */
+.home-page .hero-brand-heading { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: center; gap: 18px; margin-bottom: 24px; }
+.home-page .hero-brand-mark { display: block; width: 76px; height: auto; border-radius: 16px; }
+.home-page .hero-brand-heading .hero-title { margin: 0; max-width: none; font-size: clamp(2rem, 3.7vw, 3.15rem); line-height: 1.12; letter-spacing: -.025em; }
+.home-page .hero-brand-heading .hero-title span { display: block; }
+.home-page .hero-brand-subtitle { margin: 12px 0 0; color: #0f4572; font-size: 1.05rem; font-weight: 700; line-height: 1.5; }
+.home-page .hero-presentation p { margin: 0 0 16px; max-width: 52ch; color: #435569; font-size: 1.05rem; line-height: 1.7; }
+@media (max-width: 640px) {
+  .home-page .hero-brand-heading { grid-template-columns: 52px minmax(0, 1fr); align-items: start; gap: 12px; margin-bottom: 20px; }
+  .home-page .hero-brand-mark { width: 52px; border-radius: 11px; }
+  .home-page .hero-brand-heading .hero-title { font-size: 1.85rem; }
+  .home-page .hero-brand-subtitle { font-size: .95rem; margin-top: 10px; }
+  .home-page .hero-presentation p { font-size: 1rem; line-height: 1.65; }
+}
