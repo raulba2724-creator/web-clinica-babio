@@ -218,7 +218,7 @@ const articlePage = (post) => {
           <span class="brand-copy"><strong>Clínica Dental Doctor Babío</strong><span>Clínica dental en Sevilla</span></span>
         </a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menú</button>
-        <nav class="site-nav" id="site-nav"><a href="/noticias.html">Noticias</a><a href="/#conocenos">Conócenos</a><a href="/#instalaciones">Instalaciones</a><a href="/#tratamientos">Tratamientos</a><a href="/#contacto">Contacto</a></nav>
+        <nav class="site-nav" id="site-nav"><a href="/noticias.html">Noticias</a><a href="/#conocenos">Conócenos</a><a href="/#instalaciones">Instalaciones</a><a href="/#tratamientos">Tratamientos</a><a href="/guia-visual-tratamientos.html">Guía visual de tratamientos</a><a href="/#contacto">Contacto</a></nav>
       </header>
       <main class="article-page">
         <article>
