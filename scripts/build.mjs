@@ -73,7 +73,7 @@ const renderHomeCard = (item) => {
   return `          <article class="news-card">
             <div class="publication-cover"><img${cardImageClass(item)} src="${cleanAssetPath(item.image)}" alt="${escapeHtml(item.image_alt)}"${imageDimensions(item)} loading="lazy" decoding="async" />${coverBrand(item)}</div>
             <div class="news-card-copy">
-              <p class="news-meta">${escapeHtml(isPost ? categoryLabel(item.category) : item.label)}</p>
+              <p class="news-meta">${escapeHtml(isPost ? categoryLabel(item.category) : item.label)}</p>${isPost && item.show_date_on_home ? `<time class="news-date" datetime="${escapeHtml(item.date)}">${escapeHtml(formatDate(item.date))}</time>` : ""}
               <h3>${escapeHtml(item.title)}</h3>
               <p>${escapeHtml(item.excerpt)}</p>
               <a class="news-placeholder-link" href="${href}">${isPost ? `Leer: ${escapeHtml(item.title)}` : "Ver publicaciones"}</a>
