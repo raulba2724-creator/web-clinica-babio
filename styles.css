@@ -1954,10 +1954,10 @@ h1, h2, h3, p, li, figcaption, .news-placeholder-link { overflow-wrap: anywhere;
 
 /* Fondo blanco de marca e iconos de contacto. */
 .home-page .site-background { background: #fff; opacity: 1; }
-.home-page .site-background::before { background-image: url("assets/images/logo-fondo-blanco.png"); background-size: min(1400px, 120vw) auto; opacity: .12; filter: none; }
+.home-page .site-background::before { background-image: url("assets/optimized/logo-fondo-blanco.webp"); background-size: min(1400px, 120vw) auto; opacity: .12; filter: none; }
 .home-page .site-background::after { background: none; }
 .home-page .hero-home { isolation: isolate; }
-.home-page .hero-home::before { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none; background: url("assets/images/logo-fondo-blanco.png") center 110px / 120% auto no-repeat; opacity: .12; }
+.home-page .hero-home::before { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none; background: url("assets/optimized/logo-fondo-blanco.webp") center 110px / 120% auto no-repeat; opacity: .12; }
 .home-page .hero-whatsapp { margin-top: 8px; background: #086b36; color: #fff; }
 .home-page .hero-whatsapp:hover, .home-page .hero-whatsapp:focus-visible { background: #07592d; }
 @media (max-width: 640px) {
@@ -1995,3 +1995,8 @@ h1, h2, h3, p, li, figcaption, .news-placeholder-link { overflow-wrap: anywhere;
 }
 .home-page .panel-service-links a:hover,
 .home-page .panel-service-links a:focus-visible { background: rgba(255,255,255,.3); }
+
+/* Keyboard shortcut: only visible on focus. */
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 10000; padding: 14px 20px; background: #fff; color: #0f4572; border: 2px solid #0f4572; border-radius: 8px; transform: translateY(-200%); font-weight: 700; }
+.skip-link:focus { transform: translateY(0); outline: 3px solid #0f4572; outline-offset: 3px; }
+main[tabindex="-1"]:focus { outline: none; }

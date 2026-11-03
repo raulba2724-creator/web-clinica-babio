@@ -210,6 +210,7 @@ const articlePage = (post) => {
     <script type="application/ld+json">${schema}</script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
     <div class="site-background" aria-hidden="true"></div>
     <div class="page-shell">
       <header class="site-header">
@@ -220,7 +221,7 @@ const articlePage = (post) => {
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menú</button>
         <nav class="site-nav" id="site-nav"><a href="/noticias.html">Noticias</a><a href="/#conocenos">Conócenos</a><a href="/#instalaciones">Instalaciones</a><a href="/#tratamientos">Tratamientos</a><a href="/guia-visual-tratamientos.html">Guía visual de tratamientos</a><a href="/#contacto">Contacto</a></nav>
       </header>
-      <main class="article-page">
+      <main class="article-page" id="main-content" tabindex="-1">
         <article>
           <a class="article-back" href="/noticias.html">← Volver a Noticias</a>
           <p class="news-meta">${escapeHtml(categoryLabel(post.category))}</p>

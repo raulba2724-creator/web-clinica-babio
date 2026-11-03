@@ -118,7 +118,7 @@
       <div class="analytics-consent-copy">
         <strong>Ayúdanos a mejorar la web</strong>
         <p>Usamos Google Analytics para conocer las visitas y qué botones se utilizan. No recogemos información clínica ni datos de los mensajes.</p>
-        <a href="/cookies.html">Más información</a>
+        <a href="/cookies.html">Política de cookies</a>
       </div>
       <div class="analytics-consent-actions">
         <button type="button" class="button button-secondary" data-consent-choice="denied">Rechazar</button>
