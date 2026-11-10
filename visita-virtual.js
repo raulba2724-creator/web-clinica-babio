@@ -20,7 +20,8 @@
     try {
       const doc = frame.contentDocument;
       const scene = doc.getElementById('scene');
-      if (!scene || doc.getElementById('error').textContent.trim()) return fail();
+      const viewerMessage = doc.getElementById('error')?.textContent.trim();
+      if (!scene || (viewerMessage && viewerMessage !== 'Modo compatible activo (sin WebGL).')) return fail();
       // Only adapt the surrounding controls; the approved geometry and renderer stay intact.
       const css = doc.createElement('style');
       css.textContent = `html{overflow-wrap:anywhere}body{margin:4px;color:#17343c}
