@@ -24,7 +24,7 @@
       if (!scene || (viewerMessage && viewerMessage !== 'Modo compatible activo (sin WebGL).')) return fail();
       // Only adapt the surrounding controls; the approved geometry and renderer stay intact.
       const css = doc.createElement('style');
-      css.textContent = `html{overflow-wrap:anywhere}body{margin:4px;color:#17343c}
+      css.textContent = `html{overflow-wrap:anywhere}body{margin:0;padding:4px;display:flow-root;color:#17343c}
         *{box-sizing:border-box}#clinica-inline .controls{gap:8px}
         button,select{min-height:44px;min-width:44px;font:inherit;max-width:100%;border:1px solid #687d87;border-radius:6px;background:#fff;color:#17343c;padding:8px}
         #clinica-inline .controls label{display:inline-flex;align-items:center;min-height:44px;gap:5px}
@@ -32,7 +32,7 @@
         :focus-visible{outline:3px solid #246a9a;outline-offset:2px}
         @media(max-width:480px){#room,#doorselect{flex-basis:100%;width:100%}}
         @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}`;
-      doc.head.append(css);
+      doc.body.append(css);
       scene.tabIndex = 0;
       scene.setAttribute('aria-label', 'Modelo 3D de la clínica. Arrastra para girar, pellizca para ampliar. Con teclado: flechas para girar, más y menos para zoom.');
       // Preserve the original functions; keyboard is an additional input method.
