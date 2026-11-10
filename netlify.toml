@@ -14,3 +14,9 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
     Cache-Control = "no-store"
+
+# Index the visit page, not its self-contained embedded renderer.
+[[headers]]
+  for = "/assets/visita-virtual/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

@@ -1,5 +1,6 @@
 import {readFile, readdir, access} from 'node:fs/promises';
 import path from 'node:path';
+import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 const root = new URL('../dist/', import.meta.url);
 const files = [];
@@ -15,6 +16,10 @@ const errors = [];
 let schemas = 0;
 for (const f of files) {
   const html = await readFile(new URL(f,root),'utf8');
+  if (f === 'assets/visita-virtual/Clinica_Babio_v36_publica.html') {
+    assert.equal(createHash('sha256').update(html).digest('hex'), '4bda8665c5ec34b9e4deb4ce2efdce0196931412080b0fec2a3c604323278854');
+    continue; // Embedded approved viewer; SEO belongs to visita-virtual.html.
+  }
   const pageUrl = new URL(f === 'index.html' ? '/' : '/'+f.replace(/index.html$/,''),'https://clinicababio.es');
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
   if (!canonical) errors.push(f+': missing canonical');

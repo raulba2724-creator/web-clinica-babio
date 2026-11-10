@@ -1,3 +1,5 @@
+import { gunzipSync } from "node:zlib";
+import { createHash } from "node:crypto";
 import { cp, mkdir, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -219,7 +221,7 @@ const articlePage = (post) => {
           <span class="brand-copy"><strong>Clínica Dental Doctor Babío</strong><span>Clínica dental en Sevilla</span></span>
         </a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menú</button>
-        <nav class="site-nav" id="site-nav"><a href="/noticias.html">Noticias</a><a href="/#conocenos">Conócenos</a><a href="/#instalaciones">Instalaciones</a><a href="/#tratamientos">Tratamientos</a><a href="/guia-visual-tratamientos.html">Guía visual de tratamientos</a><a href="/#contacto">Contacto</a></nav>
+        <nav class="site-nav" id="site-nav"><a href="/noticias.html">Noticias</a><a href="/#conocenos">Conócenos</a><a href="/#instalaciones">Instalaciones</a><a href="/#tratamientos">Tratamientos</a><a href="/guia-visual-tratamientos.html">Guía visual de tratamientos</a><a href="/#contacto">Contacto</a><a href="/visita-virtual.html">Visita virtual</a></nav>
       </header>
       <main class="article-page" id="main-content" tabindex="-1">
         <article>
@@ -272,6 +274,14 @@ const copySourceSite = async () => {
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 await copySourceSite();
+
+// Expand the approved public v36 verbatim. Do not use older/private models.
+const publicViewer = gunzipSync(await readFile(path.join(contentDirectory, 'visita-virtual/Clinica_Babio_v36_publica.html.gz')));
+if (createHash('sha256').update(publicViewer).digest('hex') !== '4bda8665c5ec34b9e4deb4ce2efdce0196931412080b0fec2a3c604323278854') {
+  throw new Error('El visor público v36 no coincide con el archivo aprobado.');
+}
+await mkdir(path.join(output, 'assets/visita-virtual'), { recursive: true });
+await writeFile(path.join(output, 'assets/visita-virtual/Clinica_Babio_v36_publica.html'), publicViewer);
 
 const site = JSON.parse(await readFile(path.join(contentDirectory, "site.json"), "utf8"));
 const posts = await readPosts();

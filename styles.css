@@ -2000,3 +2000,9 @@ h1, h2, h3, p, li, figcaption, .news-placeholder-link { overflow-wrap: anywhere;
 .skip-link { position: fixed; top: 12px; left: 12px; z-index: 10000; padding: 14px 20px; background: #fff; color: #0f4572; border: 2px solid #0f4572; border-radius: 8px; transform: translateY(-200%); font-weight: 700; }
 .skip-link:focus { transform: translateY(0); outline: 3px solid #0f4572; outline-offset: 3px; }
 main[tabindex="-1"]:focus { outline: none; }
+
+/* Allow the additional virtual-visit link to wrap without crowding the brand. */
+@media (min-width: 1081px) {
+  .site-nav { flex-wrap: wrap; justify-content: flex-end; row-gap: 8px; }
+  .site-header .brand { flex-shrink: 0; }
+}

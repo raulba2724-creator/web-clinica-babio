@@ -1,0 +1,11 @@
+.virtual-main { color: #17343c; }
+.virtual-intro, .virtual-help { padding: clamp(20px, 4vw, 40px); }
+.virtual-intro h1 { margin: 0 0 16px; font-size: clamp(2rem, 5vw, 3.5rem); }
+.virtual-intro p, .virtual-help p { max-width: 76ch; }
+.virtual-viewer { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: clamp(12px, 2vw, 24px); min-width: 0; }
+#virtual-start { padding: 24px 0; }
+#virtual-frame { width: 100%; border: 0; height: 800px; }
+#virtual-frame[hidden] { display: none; }
+.virtual-disclaimer { font-size: .9rem; color: #465a65; }
+.virtual-main .button { min-height: 44px; white-space: normal; }
+.virtual-main :focus-visible { outline: 3px solid #246a9a; outline-offset: 3px; }
