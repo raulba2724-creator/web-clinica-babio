@@ -38,6 +38,7 @@
       // Preserve the original functions; keyboard is an additional input method.
       const keyboard = doc.createElement('script');
       keyboard.textContent = `document.getElementById('scene').addEventListener('keydown', e => {
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
         if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','=','-'].includes(e.key)) return;
         e.preventDefault();
         if(e.key==='ArrowLeft') az-=.1; if(e.key==='ArrowRight') az+=.1;
