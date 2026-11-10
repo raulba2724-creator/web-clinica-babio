@@ -1,61 +1,62 @@
 (() => {
-  const start = document.getElementById('start-tour');
   const frame = document.getElementById('virtual-frame');
   const status = document.getElementById('virtual-status');
-  let resizeObserver;
-  const fail = () => {
-    status.textContent = 'No se ha podido cargar la visita. Comprueba la conexión y pulsa para intentarlo de nuevo.';
-    start.disabled = false;
-    document.getElementById('virtual-start').hidden = false;
-  };
-  start.addEventListener('click', () => {
-    start.disabled = true;
-    status.textContent = 'Cargando la visita virtual…';
-    frame.hidden = false;
-    frame.src = '/assets/visita-virtual/Clinica_Babio_v36_publica.html';
-  });
-  frame.addEventListener('error', fail);
+  // One iframe document owns the original animation loop. View changes never reload it.
+  if (frame.dataset.initialized) return;
+  frame.dataset.initialized = 'true';
+  frame.addEventListener('error', () => { status.textContent = 'No se ha podido cargar la visita. Recarga la página para intentarlo de nuevo.'; });
   frame.addEventListener('load', () => {
     if (!frame.getAttribute('src')) return;
-    try {
-      const doc = frame.contentDocument;
-      const scene = doc.getElementById('scene');
-      const viewerMessage = doc.getElementById('error')?.textContent.trim();
-      if (!scene || (viewerMessage && viewerMessage !== 'Modo compatible activo (sin WebGL).')) return fail();
-      // Only adapt the surrounding controls; the approved geometry and renderer stay intact.
-      const css = doc.createElement('style');
-      css.textContent = `html{overflow-wrap:anywhere}body{margin:0;padding:4px;display:flow-root;color:#17343c}
-        *{box-sizing:border-box}#clinica-inline .controls{gap:8px}
-        button,select{min-height:44px;min-width:44px;font:inherit;max-width:100%;border:1px solid #687d87;border-radius:6px;background:#fff;color:#17343c;padding:8px}
-        #clinica-inline .controls label{display:inline-flex;align-items:center;min-height:44px;gap:5px}
-        #clinica-inline select{min-width:0}#clinica-inline canvas{height:clamp(260px,58vw,650px);min-height:0}
-        :focus-visible{outline:3px solid #246a9a;outline-offset:2px}
-        @media(max-width:480px){#room,#doorselect{flex-basis:100%;width:100%}}
-        @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}`;
-      doc.body.append(css);
-      scene.tabIndex = 0;
-      scene.setAttribute('aria-label', 'Modelo 3D de la clínica. Arrastra para girar, pellizca para ampliar. Con teclado: flechas para girar, más y menos para zoom.');
-      // Preserve the original functions; keyboard is an additional input method.
-      const keyboard = doc.createElement('script');
-      keyboard.textContent = `document.getElementById('scene').addEventListener('keydown', e => {
-        if (e.ctrlKey || e.metaKey || e.altKey) return;
-        if (!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','=','-'].includes(e.key)) return;
-        e.preventDefault();
-        if(e.key==='ArrowLeft') az-=.1; if(e.key==='ArrowRight') az+=.1;
-        if(e.key==='ArrowUp') el=Math.min(1.569,el+.1); if(e.key==='ArrowDown') el=Math.max(.1,el-.1);
-        if(e.key==='+'||e.key==='=') zoom=Math.max(2,zoom*.8); if(e.key==='-') zoom=Math.min(30,zoom*1.2);
-        draw();
-      });`;
-      doc.body.append(keyboard);
-      const resize = () => { frame.style.height = Math.ceil(doc.body.getBoundingClientRect().height + 12) + 'px'; };
-      resizeObserver?.disconnect();
-      resizeObserver = new ResizeObserver(resize);
-      resizeObserver.observe(doc.body);
-      resize();
-      frame.contentWindow.dispatchEvent(new Event('resize'));
-      document.getElementById('virtual-start').hidden = true;
-      status.textContent = 'Visita lista. Selecciona una estancia o explora la clínica completa.';
-      scene.focus({ preventScroll: true });
-    } catch { fail(); }
+    const doc = frame.contentDocument;
+    const scene = doc?.querySelector('#simulacion-babio canvas');
+    const state = doc?.getElementById('estado');
+    if (!scene || !state) { status.textContent = 'No se ha podido cargar la simulación. Recarga la página para intentarlo de nuevo.'; return; }
+    const css = doc.createElement('style');
+    css.textContent = `html{overflow-wrap:anywhere}body{margin:0;padding:4px;display:flow-root}
+      *{box-sizing:border-box}#simulacion-babio .controls{gap:10px;flex-wrap:wrap}
+      #simulacion-babio select{min-height:44px;min-width:0;max-width:100%;font:inherit}
+      #simulacion-babio label{min-height:44px;display:inline-flex;align-items:center;gap:6px}
+      #simulacion-babio canvas{height:clamp(300px,58vw,650px);min-height:0}
+      :focus-visible{outline:3px solid #246a9a;outline-offset:2px}
+      @media(max-width:480px){#simulacion-babio #view{flex:1 1 180px}}`;
+    doc.body.append(css);
+    const resize = () => { frame.style.height = Math.ceil(doc.body.getBoundingClientRect().height + 12) + 'px'; };
+    const sizing = new ResizeObserver(resize);
+    sizing.observe(doc.body); resize();
+    const ready = () => {
+      const message = state.textContent.trim();
+      if (!message) { status.textContent = ''; initialization.disconnect(); }
+      else if (/Error|No se han podido/.test(message)) { status.textContent = message; initialization.disconnect(); }
+    };
+    const initialization = new MutationObserver(ready);
+    initialization.observe(state, {childList:true,subtree:true,characterData:true});
+    ready();
+
+    // Add two-finger zoom through the original wheel handler. No geometry, timing or doors change.
+    const fingers = new Map();
+    let distance = 0;
+    const span = () => { const p = [...fingers.values()]; return Math.hypot(p[0][0]-p[1][0],p[0][1]-p[1][1]); };
+    scene.addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'touch') return;
+      fingers.set(e.pointerId,[e.clientX,e.clientY]);
+      if (fingers.size > 1) {
+        e.stopImmediatePropagation();
+        scene.onpointercancel?.(e);
+        scene.setPointerCapture(e.pointerId);
+        distance = span();
+      }
+    }, true);
+    scene.addEventListener('pointermove', e => {
+      if (!fingers.has(e.pointerId)) return;
+      fingers.set(e.pointerId,[e.clientX,e.clientY]);
+      if (fingers.size < 2) return;
+      e.preventDefault(); e.stopImmediatePropagation();
+      const next = span();
+      if (distance > 0 && next > 0) scene.dispatchEvent(new frame.contentWindow.WheelEvent('wheel', {deltaY:Math.log(distance/next)*1000,cancelable:true}));
+      distance = next;
+    }, {capture:true,passive:false});
+    for (const type of ['pointerup','pointercancel','lostpointercapture']) scene.addEventListener(type,e => { fingers.delete(e.pointerId); distance = 0; },true);
+    // Observers and event listeners belong to this document; a reload destroys its single loop.
   });
+  frame.src = '/assets/visita-virtual/Clinica_Babio_simulacion_v04.html';
 })();

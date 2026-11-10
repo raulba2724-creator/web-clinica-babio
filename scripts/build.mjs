@@ -275,13 +275,13 @@ await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 await copySourceSite();
 
-// Expand the approved public v36 verbatim. Do not use older/private models.
-const publicViewer = gunzipSync(await readFile(path.join(contentDirectory, 'visita-virtual/Clinica_Babio_v36_publica.html.gz')));
-if (createHash('sha256').update(publicViewer).digest('hex') !== '4bda8665c5ec34b9e4deb4ce2efdce0196931412080b0fec2a3c604323278854') {
-  throw new Error('El visor público v36 no coincide con el archivo aprobado.');
+// Expand the approved animated public v04 verbatim. Do not use older/private models.
+const publicViewer = gunzipSync(await readFile(path.join(contentDirectory, 'visita-virtual/Clinica_Babio_simulacion_v04.html.gz')));
+if (createHash('sha256').update(publicViewer).digest('hex') !== 'd605210d7f06dc39e53735b9f8eb07c879f602daec25c633a34a1bf96b222fce') {
+  throw new Error('El visor público v04 no coincide con el archivo aprobado.');
 }
 await mkdir(path.join(output, 'assets/visita-virtual'), { recursive: true });
-await writeFile(path.join(output, 'assets/visita-virtual/Clinica_Babio_v36_publica.html'), publicViewer);
+await writeFile(path.join(output, 'assets/visita-virtual/Clinica_Babio_simulacion_v04.html'), publicViewer);
 
 const site = JSON.parse(await readFile(path.join(contentDirectory, "site.json"), "utf8"));
 const posts = await readPosts();

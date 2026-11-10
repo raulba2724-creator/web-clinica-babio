@@ -11,7 +11,7 @@ test('scheduled article is absent before deadline and present everywhere at dead
   try {
     await mkdir(path.join(dir,'scripts'));
     await mkdir(path.join(dir,'content/visita-virtual'), {recursive:true});
-    await copyFile(fileURLToPath(new URL('../content/visita-virtual/Clinica_Babio_v36_publica.html.gz',import.meta.url)),path.join(dir,'content/visita-virtual/Clinica_Babio_v36_publica.html.gz'));
+    await copyFile(fileURLToPath(new URL('../content/visita-virtual/Clinica_Babio_simulacion_v04.html.gz',import.meta.url)),path.join(dir,'content/visita-virtual/Clinica_Babio_simulacion_v04.html.gz'));
     await mkdir(path.join(dir,'content/posts'), {recursive:true});
     for (const script of ['build.mjs','publication-schedule.mjs']) await copyFile(fileURLToPath(new URL(script,import.meta.url)),path.join(dir,'scripts',script));
     await writeFile(path.join(dir,'index.html'),'<!-- CMS:HOME_NEWS_START --><!-- CMS:HOME_NEWS_END --><!-- CMS:SECTOR_CASE_START --><!-- CMS:SECTOR_CASE_END -->');
