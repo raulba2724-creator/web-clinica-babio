@@ -17,7 +17,7 @@ let schemas = 0;
 for (const f of files) {
   const html = await readFile(new URL(f,root),'utf8');
   if (f === 'assets/visita-virtual/Clinica_Babio_simulacion_v04.html') {
-    assert.equal(createHash('sha256').update(html).digest('hex'), '3172e9af806bf58844d2f637a3f96bd6e7b5bfe06a5e4dd51c9c6f939b1c1c77');
+    assert.equal(createHash('sha256').update(html).digest('hex'), 'c2c6f89e24cefc687d64b6663d788c206a72922b21af5cc065a12af68e8ce1f9');
     continue; // Embedded approved viewer; SEO belongs to visita-virtual.html.
   }
   const pageUrl = new URL(f === 'index.html' ? '/' : '/'+f.replace(/index.html$/,''),'https://clinicababio.es');

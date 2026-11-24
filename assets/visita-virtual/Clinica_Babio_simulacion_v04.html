@@ -249,6 +249,12 @@ if(gl){
      if(material==19.)light=vec3(.81,.82,.82)*(.81+.19*probe.a+.1*probe.b);
      if(material==21.){gl_FragColor=vec4(color,1.);return;}
    }
+   if(material==49.){
+     float illumination=dot(light,vec3(.2126,.7152,.0722));
+     light=vec3(clamp(.34+.63*illumination,.70,.995));
+     base=color*(.998+.002*noise(uv*18.));
+     gloss=.009;
+   }
    if(material==30.){
      float rim=pow(1.-abs(dot(n,viewRay)),3.);
      gl_FragColor=vec4(mix(vec3(.67,.77,.78),vec3(.88,.93,.93),rim),.15+.44*rim);return;
@@ -439,6 +445,13 @@ function prepareFigure(character){
     piece.finish=piece.paint?18:piece.anatomy?(piece.person===1?10:9):(piece.surface|| (isSkin?6:isCloth?7:0));
     prepare(piece);
   }
+}
+// The architectural partitions have their own paint, independent of white equipment.
+for(const partition of room){
+ if(partition.room==='Tabiques compartidos' && !partition.finish){
+   partition.finish=49;
+   partition.c=[.984,.985,.982];
+ }
 }
 const merged=new Map();for(const o of room){const key=JSON.stringify([o.room,o.wall,o.c,o.finish]);if(!merged.has(key))merged.set(key,{room:o.room,wall:o.wall,c:o.c,finish:o.finish,v:[],rawTriangles:[]});const g=merged.get(key),n=g.v.length;g.v.push(...o.v);if(o.paint){g.paint??=[];g.paint.push(...o.paint)}if(o.normals){g.normals??=[];g.normals.push(...o.normals)}g.rawTriangles.push(...(o.rawTriangles||data.triangles[o.t]).map(t=>t.map(i=>i+n)))}room=[...merged.values()];for(const c of chars)prepareFigure(c);for(const o of room){o.finish=o.finish||finishes.get(o.c.join())||0;prepare(o);}
 const schedule=data.schedule, cycle=schedule.duration;
@@ -656,7 +669,7 @@ function draw(){
      const scale=guided?canvas.height*focal/(-2*q[2]):canvas.height/zoom;
      return [canvas.width/2+q[0]*scale,canvas.height/2-q[1]*scale,q[2]];
     });
-    const n=norm(cross(sub(o.v[t[1]],o.v[t[0]]),sub(o.v[t[2]],o.v[t[0]]))),light=.65+.35*Math.abs(n[2]);tris.push({p,z:p.reduce((s,v)=>s+v[2],0)/p.length,c:'rgb('+o.c.map(x=>Math.round(x*255*light)).join(',')+')'})}}
+    const n=norm(cross(sub(o.v[t[1]],o.v[t[0]]),sub(o.v[t[2]],o.v[t[0]]))),light=o.finish===49?.90+.08*Math.abs(n[2]):.65+.35*Math.abs(n[2]);tris.push({p,z:p.reduce((s,v)=>s+v[2],0)/p.length,c:'rgb('+o.c.map(x=>Math.round(x*255*light)).join(',')+')'})}}
   tris.sort((a,b)=>a.z-b.z);for(const t of tris){ctx.fillStyle=t.c;ctx.beginPath();ctx.moveTo(t.p[0][0],t.p[0][1]);ctx.lineTo(t.p[1][0],t.p[1][1]);for(const pt of t.p.slice(2))ctx.lineTo(pt[0],pt[1]);ctx.closePath();ctx.fill()}
  }
 }
