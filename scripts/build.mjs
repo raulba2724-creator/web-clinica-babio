@@ -277,7 +277,7 @@ await copySourceSite();
 
 // Expand the approved animated public v04 verbatim. Do not use older/private models.
 const publicViewer = gunzipSync(await readFile(path.join(contentDirectory, 'visita-virtual/Clinica_Babio_simulacion_v04.html.gz')));
-if (createHash('sha256').update(publicViewer).digest('hex') !== 'd605210d7f06dc39e53735b9f8eb07c879f602daec25c633a34a1bf96b222fce') {
+if (createHash('sha256').update(publicViewer).digest('hex') !== '3172e9af806bf58844d2f637a3f96bd6e7b5bfe06a5e4dd51c9c6f939b1c1c77') {
   throw new Error('El visor público v04 no coincide con el archivo aprobado.');
 }
 await mkdir(path.join(output, 'assets/visita-virtual'), { recursive: true });
